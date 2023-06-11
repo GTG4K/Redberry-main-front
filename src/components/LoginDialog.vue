@@ -1,0 +1,38 @@
+<template>
+  <!--    login -->
+  <formDialog @close="emit('setDialog',null)" title="Create an account"
+              description="Start your journey!">
+    <Form class="flex flex-col gap-4">
+      <TextInput name="email" placeholder="Enter your email"/>
+      <TextInput name="password" placeholder="Password" type="password"/>
+      <BaseButton color="red">Sign in</BaseButton>
+      <div>
+        <div class="flex justify-between">
+          <div class="flex gap-2 align-center">
+            <Field type="checkbox" name="remember"></Field>
+            <label for="remember" class="text-white text-sm">Remember me</label>
+          </div>
+          <p class="text-blue-500 text-sm cursor-pointer hover:text-blue-400" @click="emit('setDialog','forgot')">Forgot
+            password</p>
+        </div>
+
+      </div>
+      <BaseButton><img src="../assets/svg/google.svg" alt="google logo">
+        <p>Sign in with Google</p></BaseButton>
+      <div class="flex gap-2 justify-center pt-3">
+        <p class="text-gray-500 text-sm align-center">Don't have an account?</p>
+        <p class="text-blue-500 text-sm cursor-pointer hover:text-blue-400" @click="emit('setDialog','sign_up')">Sign
+          up</p>
+      </div>
+    </Form>
+  </formDialog>
+</template>
+
+<script setup>
+import BaseButton from "./BaseButton.vue";
+import TextInput from "./TextInput.vue";
+import FormDialog from "./FormDialog.vue";
+import {Field, Form} from "vee-validate";
+
+const emit = defineEmits(['setDialog']);
+</script>

@@ -1,8 +1,5 @@
 <template>
   <HeaderComponent />
-  <div class="bg-landing">
-    <LandingView/>
-  </div>
 </template>
 
 <script setup>
