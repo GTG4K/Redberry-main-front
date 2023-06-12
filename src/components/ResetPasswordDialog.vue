@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import {Form} from "vee-validate";
+import { Form } from "vee-validate";
 import FormDialog from "./FormDialog.vue";
 import TextInput from "./TextInput.vue";
 import BaseButton from "./BaseButton.vue";

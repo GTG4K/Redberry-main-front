@@ -19,8 +19,9 @@
     <ActivateAccountDialog v-if="dialog==='activate_account'" @setDialog="setDialog"></ActivateAccountDialog>
     <AccountActivatedDialog v-if="dialog==='account_activated'" @setDialog="setDialog"></AccountActivatedDialog>
     <ResetPasswordDialog v-if="dialog==='reset_password'" @setDialog="setDialog"></ResetPasswordDialog>
-
-
+    <EmailChangedDialog v-if="dialog==='email_changed'" @setDialog="setDialog"></EmailChangedDialog>
+    <PasswordChangedDialog v-if="dialog==='password_changed'" @setDialog="setDialog"></PasswordChangedDialog>
+    <LinkExpiredDialog v-if="dialog==='link_expired'" @setDialog="setDialog"></LinkExpiredDialog>
   </main>
 </template>
 
@@ -35,6 +36,9 @@ import ForgotPasswordDialog from "../components/ForgotPasswordDialog.vue";
 import ActivateAccountDialog from "../components/ActivateAccountDialog.vue";
 import AccountActivatedDialog from "../components/AccountActivatedDialog.vue";
 import ResetPasswordDialog from "../components/ResetPasswordDialog.vue";
+import EmailChangedDialog from "../components/EmailChangedDialog.vue";
+import PasswordChangedDialog from "../components/PasswordChangedDialog.vue";
+import LinkExpiredDialog from "../components/LinkExpiredDialog.vue";
 
 const dialog = ref('reset_password');
 const setDialog = (action) => {
