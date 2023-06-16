@@ -3,7 +3,7 @@
     <label class="font-light text-white">{{ props.name }}</label>
     <Field :name="props.name" :rules="props.rules" :placeholder="props.placeholder" :type="props.type ?? 'text'"
     class="bg-form-input text-sm placeholder-font-text p-2 w-96 rounded w-full placeholder-form-text"/>
-    <ErrorMessage :name="props.name"/>
+    <ErrorMessage class="text-red-500 text-sm" :name="props.name"/>
   </div>
 </template>
 

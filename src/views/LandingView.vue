@@ -3,7 +3,7 @@
   <main class="bg-landing min-h-screen">
     <div class="bg-landing flex flex-col justify-center items-center gap-8 m-auto text-center h-screen w-[40rem]">
       <h2 class="text-yellow-dead text-4xl">Find any quote in millions of movie lines</h2>
-      <BaseButton color="red"> Get Started</BaseButton>
+      <BaseButton color="red" @click="setDialog('sign_up')"> Get Started</BaseButton>
     </div>
     <LandingSection quote="“You have to leave something behind to go forward”"
                     movie="Interstellar, 2014" :section="1"/>
@@ -40,7 +40,7 @@ import EmailChangedDialog from "../components/EmailChangedDialog.vue";
 import PasswordChangedDialog from "../components/PasswordChangedDialog.vue";
 import LinkExpiredDialog from "../components/LinkExpiredDialog.vue";
 
-const dialog = ref('reset_password');
+const dialog = ref(null);
 const setDialog = (action) => {
   dialog.value = action;
 }

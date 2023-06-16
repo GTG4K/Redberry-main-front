@@ -14,4 +14,4 @@ configure({
     }),
 });
 
-setLocale('ka');
+setLocale('en');

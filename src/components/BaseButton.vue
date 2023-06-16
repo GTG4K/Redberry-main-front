@@ -1,5 +1,5 @@
 <template>
-  <button class="text-white h-8 min-w-[80px] px-3 rounded font-light flex justify-center items-center gap-2" :class="buttonTheme">
+  <button :type="props.submit ? 'submit' : 'button'" class="text-white h-8 min-w-[80px] px-3 rounded font-light flex justify-center items-center gap-2" :class="buttonTheme">
     <slot></slot>
   </button>
 </template>
@@ -7,7 +7,7 @@
 <script setup>
   import {computed} from "vue";
 
-  const props = defineProps({'color': String, 'size':String});
+  const props = defineProps({'color': String, 'size':String, 'submit':Boolean});
   const buttonTheme = computed(()=>{
     return {
       'w-full':props.size === 'full',
