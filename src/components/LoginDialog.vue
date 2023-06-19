@@ -49,7 +49,7 @@ const formSubmit = async (meta, values) => {
     }
     const user = await login(payload);
     userStore.setUser(user);
-    await router.push({name: 'home'});
+    router.push({name: 'home'});
   }
 }
 

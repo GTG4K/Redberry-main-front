@@ -12,4 +12,12 @@ export const useUserStore = defineStore('user', {
             this.user = null; // Clear the user state
         },
     },
+    getters: {
+        getUserProfile(){
+            return this.user?.profile_picture;
+        },
+        getUserName(){
+            return this.user?.name;
+        }
+    }
 });
