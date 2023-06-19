@@ -1,0 +1,40 @@
+import instance from "../config/axios/axios";
+
+async function user(){
+    try {
+        const response = await instance.get('api/user');
+        return response.data
+    } catch (error) {
+        console.log(error);
+    }
+}
+async function register(data) {
+    try {
+        const response = await instance.post('api/register', data);
+        console.log(response);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function login(data) {
+    try {
+        await instance.get('/sanctum/csrf-cookie');
+        const response = await instance.post('api/login', data);
+        console.log(response);
+        return await user();
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function logout() {
+    try {
+        const response = await instance.post('api/logout');
+        console.log(response);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export {register, login, user, logout}

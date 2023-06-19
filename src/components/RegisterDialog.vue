@@ -26,9 +26,19 @@ import {Form} from "vee-validate";
 import FormDialog from "./FormDialog.vue";
 import TextInput from "./TextInput.vue";
 import BaseButton from "./BaseButton.vue";
+import {register} from "@/services/auth";
 
 const formSubmit = (meta, values) => {
-  console.log(meta, values);
+  if (meta.valid) {
+    const payload = {
+      name: values.name,
+      email: values.email,
+      password: values.password,
+      password_confirmation: values.password_confirmation
+    }
+
+    register(payload);
+  }
 }
 
 const emit = defineEmits(['setDialog']);

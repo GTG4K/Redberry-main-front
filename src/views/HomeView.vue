@@ -1,5 +1,6 @@
 <template>
   <HeaderComponent />
+  <main>dattebayo</main>
 </template>
 
 <script setup>
