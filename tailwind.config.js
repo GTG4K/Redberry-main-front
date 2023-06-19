@@ -8,7 +8,10 @@ module.exports = {
         extend: {
             colors: {
                 'landing': '#08080D',
-                'yellow-dead': '#DDCCAA'
+                'form':'#222030',
+                'form-input':'#CED4DA',
+                'form-text': '#6C757D',
+                'yellow-dead': '#DDCCAA',
             },
             height: {
                 'header': '60px'
