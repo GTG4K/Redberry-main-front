@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="flex flex-col gap-8">
-        <QuotesComponent :quotes="quoteList"/>
+        <QuotesComponent/>
       </div>
     </aside>
   </main>
@@ -24,15 +24,10 @@
 <script setup>
 import HeaderComponent from "../components/HeaderComponent.vue";
 import NavigationBar from "@/components/NavigationBar.vue";
-import {computed} from "vue";
 import {useQuoteStore} from "@/stores/Quotes";
 import {getQuotes} from "@/services/quotes";
 import QuotesComponent from "@/components/QuotesComponent.vue";
 const quoteStore = useQuoteStore();
-
-const quoteList = computed(() => {
-  return quoteStore.getQuotes;
-})
 
 const fetchQuotes = async () => {
   const response = await getQuotes()

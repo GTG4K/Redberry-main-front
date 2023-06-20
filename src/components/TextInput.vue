@@ -2,7 +2,7 @@
   <div class="flex flex-col gap-2">
     <label class="text-white text-sm">{{ props.name }}</label>
     <Field :name="props.name" :rules="props.rules" :placeholder="props.placeholder" :type="props.type ?? 'text'"
-    class="bg-form-input text-sm placeholder-font-text p-2 w-96 rounded w-full placeholder-form-text"/>
+           class="bg-form-input text-sm placeholder-font-text p-2 w-96 rounded w-full placeholder-form-text"/>
     <ErrorMessage class="text-red-500 text-sm" :name="props.name"/>
   </div>
 </template>

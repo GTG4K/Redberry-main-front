@@ -14,10 +14,17 @@ export const useQuoteStore = defineStore('quotes', {
             this.movies = null;
             this.quotesExist = false;
         },
+        addQuoteComment(quoteId, comment){
+            this.quotes.forEach(quote=>{
+                if(quote.id === quoteId) quote.comments = [...quote.comments, comment]
+            })
+        }
     },
     getters: {
         getQuotes() {
-            return {...this.quotes}
+            return this.quotes
+        },
+        getHomePageQuotes() {
         },
         getQuotesExist() {
             return this.quotesExist

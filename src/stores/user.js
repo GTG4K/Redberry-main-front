@@ -18,6 +18,17 @@ export const useUserStore = defineStore('user', {
         },
         getUserName(){
             return this.user?.name;
+        },
+        getUserID(){
+            return this.user?.id;
+        },
+        getUserResource(){
+          return {
+              id: this.user.id,
+              name: this.user.name,
+              email: this.user.email,
+              profile_picture: this.user.profile_picture,
+          }
         }
     }
 });
