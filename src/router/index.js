@@ -3,6 +3,7 @@ import {user} from "@/services/auth";
 
 const LandingView = () => import("../views/LandingView.vue");
 const HomeView = () => import("../views/HomeView.vue");
+const ProfileView = () => import("../views/ProfileView.vue");
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,6 +24,12 @@ const router = createRouter({
             name: 'movies',
             meta: {requiresAuth: true},
             component: HomeView
+        },
+        {
+            path: '/profile',
+            name: 'profile',
+            meta: {requiresAuth: true},
+            component: ProfileView
         },
     ]
 })

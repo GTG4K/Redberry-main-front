@@ -4,7 +4,7 @@
       <img :src="userProfilePicture" alt="profile pic" class="w-12 object-cover rounded-full">
       <div class="flex flex-col gap-1 justify-center">
         <h2 class="text-white">{{ userProfileName }}</h2>
-        <h3 class="text-white/75 text-sm font cursor-pointer hover:text-white">Edit your profile</h3>
+        <h3 @click="router.push({name: 'profile'})" class="text-white/75 text-sm font cursor-pointer hover:text-white">Edit your profile</h3>
       </div>
     </div>
     <router-link :to="{name: 'home'}" class="flex gap-8 text-white items-center pl-3">
@@ -21,7 +21,9 @@
 <script setup>
 import {useUserStore} from "@/stores/user";
 import {computed} from "vue";
+import {useRouter} from "vue-router";
 
+const router = useRouter();
 const userStore = useUserStore();
 const userProfilePicture = computed(() => {
   return userStore.getUserProfile;

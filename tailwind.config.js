@@ -11,7 +11,7 @@ module.exports = {
                 'landing': '#08080D',
                 'background': '#181623',
                 'form':'#222030',
-                'form-input':'#CED4DA',
+                'form-input':'#e4ecf5',
                 'form-text': '#6C757D',
                 'yellow-dead': '#DDCCAA',
                 'header':'#222030',
