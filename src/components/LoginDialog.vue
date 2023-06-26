@@ -48,8 +48,10 @@ const formSubmit = async (meta, values) => {
       password: values.password,
     }
     const user = await login(payload);
-    userStore.setUser(user);
-    router.push({name: 'home'});
+    if(user){
+      userStore.setUser(user);
+      router.push({name: 'home'});
+    }
   }
 }
 

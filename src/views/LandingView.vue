@@ -39,8 +39,11 @@ import ResetPasswordDialog from "../components/ResetPasswordDialog.vue";
 import EmailChangedDialog from "../components/EmailChangedDialog.vue";
 import PasswordChangedDialog from "../components/PasswordChangedDialog.vue";
 import LinkExpiredDialog from "../components/LinkExpiredDialog.vue";
+import {useRoute} from "vue-router";
 
-const dialog = ref(null);
+const route = useRoute()
+const dialog = ref(route.query.dialog || null);
+
 const setDialog = (action) => {
   dialog.value = action;
 }

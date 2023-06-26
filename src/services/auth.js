@@ -1,4 +1,4 @@
-import instance from "../config/axios/axios";
+import {instance} from "../config/axios/axios";
 
 async function user(){
     try {
@@ -11,9 +11,9 @@ async function user(){
 async function register(data) {
     try {
         const response = await instance.post('api/register', data);
-        console.log(response);
+        return response
     } catch (error) {
-        console.log(error);
+        return error.response;
     }
 }
 

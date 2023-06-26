@@ -10,6 +10,7 @@ module.exports = {
             colors: {
                 'landing': '#08080D',
                 'background': '#181623',
+                'backdrop':'#11101A',
                 'form':'#222030',
                 'form-input':'#e4ecf5',
                 'form-text': '#6C757D',

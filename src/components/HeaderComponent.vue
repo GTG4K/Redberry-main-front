@@ -1,13 +1,13 @@
 <template>
-  <header class="fixed top-0 left-0 w-full h-header flex justify-between items-center px-14 z-10" :class="userExists && 'bg-header'">
+  <header class="fixed top-0 left-0 w-full h-header flex justify-between items-center px-14 z-10" :class="userExists && 'bg-header z-40'">
     <h2 class="text-yellow-dead">MOVIE QUOTES</h2>
     <div v-if="!userExists" class="flex gap-6 items-center">
-      <div class="text-white font-light">Eng</div>
+      <LanguageDropdown></LanguageDropdown>
       <BaseButton color="red" @click="emit('action', 'sign_up')">Sign Up</BaseButton>
       <BaseButton @click="emit('action', 'log_in')">Log in</BaseButton>
     </div>
     <div v-if="userExists" class="flex gap-6 items-center">
-      <div class="text-white font-light">Eng</div>
+      <LanguageDropdown></LanguageDropdown>
       <BaseButton @click="onLogout">Log out</BaseButton>
     </div>
   </header>
@@ -19,6 +19,7 @@ import {logout} from "@/services/auth";
 import {computed} from "vue";
 import {useUserStore} from "@/stores/user";
 import {useRouter} from "vue-router";
+import LanguageDropdown from "@/components/LanguageDropdown.vue";
 
 const router = useRouter()
 const userStore = useUserStore();

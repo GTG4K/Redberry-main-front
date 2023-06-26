@@ -13,8 +13,10 @@ const userStore = useUserStore();
 onBeforeMount(async () => {
   try {
     const currentUser = await user();
-    userStore.setUser(currentUser);
-    router.push({name:'home'})
+    if (currentUser) {
+      userStore.setUser(currentUser);
+      router.push({name: 'home'})
+    }
   } catch (error) {
     console.log(error)
   }

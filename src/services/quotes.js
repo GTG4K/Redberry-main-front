@@ -1,4 +1,4 @@
-import instance from "../config/axios/axios";
+import {formDataInstance, instance} from "@/config/axios/axios";
 
 async function getQuotes(){
     try {
@@ -9,4 +9,13 @@ async function getQuotes(){
     }
 }
 
-export {getQuotes}
+async function storeQuote(data){
+    try {
+        const response = await formDataInstance.post('api/quotes', data);
+        console.log(response);
+    }catch (error){
+        console.log(error.response.data);
+    }
+}
+
+export {getQuotes, storeQuote}

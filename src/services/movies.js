@@ -1,4 +1,4 @@
-import instance from "../config/axios/axios";
+import {formDataInstance, instance} from "../config/axios/axios";
 
 async function getMovies(){
     try {
@@ -9,4 +9,13 @@ async function getMovies(){
     }
 }
 
-export {getMovies}
+async function storeMovie(data){
+    try {
+        const response = await formDataInstance.post('api/movies', data);
+        console.log(response);
+    }catch (error){
+        console.log(error);
+    }
+}
+
+export {getMovies, storeMovie}
