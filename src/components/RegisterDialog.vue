@@ -8,6 +8,7 @@
         <TextInput name="password" type="password" placeholder="username here" rules="required|min:8|max:15"/>
         <TextInput name="password_confirmation" placeholder="username here" type="password"
                    rules="required|confirmed:@password"/>
+        <p class="text-red-500 text-sm text-center" v-if="warning">{{warning}}</p>
         <BaseButton submit color="red">Get Started</BaseButton>
         <BaseButton><img src="../assets/svg/google.svg" alt="google logo">
           <p>Sign up with Google</p></BaseButton>
@@ -26,9 +27,30 @@ import {Form} from "vee-validate";
 import FormDialog from "./FormDialog.vue";
 import TextInput from "./TextInput.vue";
 import BaseButton from "./BaseButton.vue";
+import {register} from "@/services/auth";
+import {ref} from "vue";
 
-const formSubmit = (meta, values) => {
-  console.log(meta, values);
+const warning = ref('');
+
+const formSubmit = async(meta, values) => {
+  if (meta.valid) {
+    const payload = {
+      name: values.name,
+      email: values.email,
+      password: values.password,
+      password_confirmation: values.password_confirmation
+    }
+
+    const response = await register(payload);
+    if (response.status === 201){
+      console.log(response.status)
+      emit('setDialog', 'activate_account');
+    }else{
+      console.log(response.data)
+      const firstErrorKey = Object.keys(response.data.errors)[0];
+      warning.value = response.data.errors[firstErrorKey][0]
+    }
+  }
 }
 
 const emit = defineEmits(['setDialog']);

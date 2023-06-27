@@ -34,9 +34,25 @@ import BaseButton from "./BaseButton.vue";
 import TextInput from "./TextInput.vue";
 import FormDialog from "./FormDialog.vue";
 import {Field, Form} from "vee-validate";
+import {login} from "@/services/auth";
+import {useUserStore} from "@/stores/user";
+import {useRouter} from "vue-router";
 
-const formSubmit = (meta, values) => {
-  console.log(meta, values);
+const router = useRouter();
+
+const userStore = useUserStore();
+const formSubmit = async (meta, values) => {
+  if (meta.valid) {
+    const payload = {
+      email: values.email,
+      password: values.password,
+    }
+    const user = await login(payload);
+    if(user){
+      userStore.setUser(user);
+      router.push({name: 'home'});
+    }
+  }
 }
 
 const emit = defineEmits(['setDialog']);

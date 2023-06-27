@@ -3,8 +3,22 @@
 </template>
 
 <script setup>
-import {RouterLink, RouterView} from 'vue-router'
-</script>
+import {RouterView, useRouter} from 'vue-router'
+import {onBeforeMount} from "vue";
+import {user} from "@/services/auth";
+import {useUserStore} from "@/stores/user";
 
-<style scoped>
-</style>
+const router = useRouter();
+const userStore = useUserStore();
+onBeforeMount(async () => {
+  try {
+    const currentUser = await user();
+    if (currentUser) {
+      userStore.setUser(currentUser);
+      router.push({name: 'home'})
+    }
+  } catch (error) {
+    console.log(error)
+  }
+})
+</script>
