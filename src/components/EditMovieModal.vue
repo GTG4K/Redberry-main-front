@@ -43,19 +43,28 @@
         <!--description-->
         <div class="relative w-full border border-white/20 rounded">
           <textarea placeholder='Description in english' name="description_en" v-model="descriptionEn"
-                    class="w-[calc(100%-4rem)] py-1 h-14 bg-transparent outline-0 px-2 resize-none"></textarea>
+                    class="w-[calc(100%-4rem)] py-1 h-28 bg-transparent outline-0 px-2"></textarea>
           <h2 class="absolute top-2 right-2 text-sm">ENG</h2>
         </div>
         <div class="relative w-full border border-white/20 rounded">
           <textarea placeholder='Description in georgian' name="description_ka" v-model="descriptionKa"
-                    class="w-[calc(100%-4rem)] py-1 h-14 bg-transparent outline-0 px-2 resize-none"></textarea>
+                    class="w-[calc(100%-4rem)] py-1 h-28 bg-transparent outline-0 px-2"></textarea>
           <h2 class="absolute top-2 right-2 text-sm">GEO</h2>
         </div>
-        <BaseFile v-model="image"></BaseFile>
+        <div class="rounded-xl mb-4 overflow-hidden relative">
+          <label for="image" class="relative group cursor-pointer w-full">
+            <img :src="imageURL" alt="quote image" class="w-full object-cover">
+            <span class="absolute top-1/2 left-1/2 -translate-x-1/2 transition-all
+              -translate-y-1/2 bg-backdrop/60 w-60 h-40 rounded-xl flex justify-center items-center group-hover:bg-backdrop/80">
+                Change Photo
+              </span>
+          </label>
+          <input type="file" class="hidden" @change="updateImage" id="image">
+        </div>
         <BaseButton submit color="red">Submit quote</BaseButton>
       </form>
     </div>
-    <div @click="toggleAddMovie(false)"
+    <div @click="toggleEditMovie(false)"
          class="fixed top-0 left-0 bg-black opacity-70 h-screen w-screen z-20"></div>
   </div>
 </template>
@@ -64,27 +73,31 @@
 import {ref} from "vue";
 import BaseButton from "@/components/BaseButton.vue";
 import {useUserStore} from "@/stores/user";
-import BaseFile from "@/components/BaseFile.vue";
-import {storeMovie} from "@/services/movies";
+import {updateMovie} from "@/services/movies";
 import {useMoviesStore} from "@/stores/Movies";
 
-const emits = defineEmits(['toggleAddMovie'])
+const props = defineProps({movieId: Number});
+const emits = defineEmits(['toggleEditMovie'])
 const userStore = useUserStore();
 const movieStore = useMoviesStore();
 
-const image = ref(null);
-const descriptionEn = ref('');
-const descriptionKa = ref('');
-const directorEn = ref('');
-const directorKa = ref('');
-const titleEn = ref('');
-const titleKa = ref('');
-const releaseDate = ref('');
-const genre = ref('');
+const movie = movieStore.getMovieById(props.movieId);
+
+const imageURL = ref(movie.poster);
+const file = ref(null);
+
+const descriptionEn = ref(movie.description.en);
+const descriptionKa = ref(movie.description.ka);
+const directorEn = ref(movie.director.en);
+const directorKa = ref(movie.director.ka);
+const titleEn = ref(movie.title.en);
+const titleKa = ref(movie.title.ka);
+const releaseDate = ref(movie.release_date);
+const genre = ref(movie.genre);
 
 const submitForm = () => {
   const formData = new FormData();
-  formData.append('image', image.value);
+  formData.append('image', file.value);
   formData.append('title_en', titleEn.value);
   formData.append('title_ka', titleKa.value);
   formData.append('description_en', descriptionEn.value);
@@ -94,19 +107,39 @@ const submitForm = () => {
   formData.append('release_date', releaseDate.value);
   formData.append('genre', genre.value);
   formData.append('user_id', userStore.getUserID);
-  storeMovie(formData);
 
-  const fileReader = new FileReader();
-  fileReader.onload = () => {
-    let imageAsDataUrl = fileReader.result;
-    movieStore.addMovie(descriptionEn.value, descriptionKa.value, directorEn.value, directorKa.value, titleEn.value, titleKa.value, genre.value, releaseDate.value, imageAsDataUrl);
-  };
-  fileReader.readAsDataURL(image.value);
-  toggleAddMovie(false)
+  const movieDetails = {
+    descriptionEn: descriptionEn.value,
+    descriptionKa: descriptionKa.value,
+    directorEn: directorEn.value,
+    directorKa: directorKa.value,
+    titleEn: titleEn.value,
+    titleKa: titleKa.value,
+    genre: genre.value,
+    poster: imageURL.value,
+    releaseDate: releaseDate.value,
+  }
+
+  movieStore.updateMovie(movie.id, movieDetails);
+  updateMovie(formData, movie.id);
+  toggleEditMovie(false)
 }
 
-const toggleAddMovie = (value) => {
-  emits('toggleAddMovie', value)
+const updateImage = (event) => {
+  const reader = new FileReader();
+  const files = event.target.files;
+  const firstFile = files[0];
+
+  file.value = firstFile;
+  reader.onload = () => {
+    imageURL.value = reader.result;
+  }
+
+  reader.readAsDataURL(firstFile);
+}
+
+const toggleEditMovie = (value) => {
+  emits('toggleEditMovie', value)
 }
 
 </script>

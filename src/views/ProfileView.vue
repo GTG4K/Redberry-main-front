@@ -2,7 +2,7 @@
   <HeaderComponent/>
   <main class="bg-background pt-header grid grid-cols-4 min-h-screen">
     <NavigationBar></NavigationBar>
-    <aside class="col-span-2 py-5">
+    <aside class="col-start-2 col-span-2 py-5">
       <h2 class="text-white">My profile</h2>
       <div class="bg-black/25 rounded relative w-full mt-20 flex items-center justify-center">
         <div class="absolute -top-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">

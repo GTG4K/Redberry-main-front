@@ -1,5 +1,5 @@
 <template>
-  <nav class="flex flex-col gap-6 px-14 py-5">
+  <nav class="fixed flex flex-col gap-6 px-14 py-5">
     <div class="flex gap-2">
       <img :src="userProfilePicture" alt="profile pic" class="w-12 object-cover rounded-full">
       <div class="flex flex-col gap-1 justify-center">

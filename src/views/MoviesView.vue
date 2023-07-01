@@ -2,7 +2,7 @@
   <HeaderComponent/>
   <main class="bg-background pt-header grid grid-cols-6 min-h-screen pr-14">
     <NavigationBar></NavigationBar>
-    <aside class="col-span-5 py-5">
+    <aside class="col-start-2 col-span-5 py-5">
       <div class="flex justify-between">
         <h2 class="text-white">My List of movies (Total {{movieList.length}})</h2>
         <BaseButton @click="toggleAddMovie" color="red">new movie</BaseButton>

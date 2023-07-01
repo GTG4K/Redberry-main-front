@@ -18,4 +18,23 @@ async function storeMovie(data){
     }
 }
 
-export {getMovies, storeMovie}
+async function updateMovie(data, movieId){
+    try {
+        const response = await formDataInstance.post(`api/movies/update/${movieId}`, data);
+        console.log(response);
+    }catch (error){
+        console.log(error);
+    }
+}
+
+async function deleteMovie(movieId){
+    try {
+        const response = await formDataInstance.post(`api/movies/${movieId}`,);
+        console.log(response);
+    }catch (error){
+        console.log(error);
+    }
+}
+
+
+export {getMovies, storeMovie, updateMovie, deleteMovie}

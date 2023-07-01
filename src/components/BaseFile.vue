@@ -16,9 +16,10 @@
 
 import {ref} from "vue";
 
+const props = defineProps(['modelValue']);
 const emits = defineEmits(['update:modelValue']);
 
-const uploadedImage = ref(null);
+const uploadedImage = ref(props.modelValue || null);
 
 const updateFile = (e) => {
   const files = e.target.files;

@@ -6,6 +6,8 @@ const HomeView = () => import("../views/HomeView.vue");
 const ProfileView = () => import("../views/ProfileView.vue");
 const MoviesView = () => import("../views/MoviesView.vue");
 const MovieView = () => import("../views/MovieView.vue");
+const QuoteView = () => import("../views/QuoteView.vue");
+
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
@@ -37,6 +39,12 @@ const router = createRouter({
             name: 'profile',
             meta: {requiresAuth: true},
             component: ProfileView
+        },
+        {
+            path: '/quote/:id',
+            name: 'quote',
+            meta: {requiresAuth: true},
+            component: QuoteView
         },
     ]
 })

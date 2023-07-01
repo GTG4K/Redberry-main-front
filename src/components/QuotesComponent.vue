@@ -12,12 +12,13 @@
     </p>
     <img :src="quote.image" alt="movie poster" class="rounded-xl w-full">
     <div class="flex gap-4 text-white">
-      <div class="flex gap-2 items-center py-2 px-4 rounded-full transition-all cursor-pointer hover:bg-blue-400/10">
+      <div class="flex gap-2 items-center py-2 px-4 rounded-full transition-all cursor-pointer hover:bg-blue-400/10"
+           @click="router.push(`/quote/${quote.id}`)">
         <h1 class="text-lg select-none">{{ quote.comments.length }} </h1>
         <img src="../assets/svg/comment.svg" alt="comment" class="w-5 h-5">
       </div>
-      <div @click="handleLike(quote.id)"
-           class="flex gap-2 items-center py-2 px-4 rounded-full transition-all cursor-pointer hover:bg-pink-400/10">
+      <div class="flex gap-2 items-center py-2 px-4 rounded-full transition-all cursor-pointer hover:bg-pink-400/10"
+           @click="handleLike(quote.id)">
         <h1 class="text-lg select-none">{{ quote.likes.length }}</h1>
         <img src="../assets/svg/heart.svg" alt="heart" class="w-5 h-5" :class="{'pink': quote.likedByAuthUser}">
       </div>
@@ -67,7 +68,7 @@ const languageStore = useLanguageStore();
 
 const router = useRouter();
 
-const storeComment = (meta, values) => {
+const storeComment = (event, meta, values) => {
   if (meta.valid) {
     const comment = {
       comment: values.comment,

@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="fixed bg-backdrop top-[4.5rem] left-1/2 -translate-x-1/2 w-1/2 text-white z-30 rounded-xl max-h-[50rem] overflow-y-auto">
+    <div
+        class="fixed bg-backdrop top-[4.5rem] left-1/2 -translate-x-1/2 w-1/2 text-white z-30 rounded-xl max-h-[50rem] overflow-y-auto">
       <h2 class="py-6 text-center">Write New Quote</h2>
       <div class="h-0.5 w-full bg-white/20"></div>
       <form class="p-5 flex flex-col gap-5" @submit.prevent="submitForm">
@@ -36,11 +37,13 @@ import {useUserStore} from "@/stores/user";
 import {useMoviesStore} from "@/stores/Movies";
 import BaseFile from "@/components/BaseFile.vue";
 import {storeQuote} from "@/services/quotes";
+import {useQuoteStore} from "@/stores/Quotes";
 
 
-const props = defineProps({movieLock:Array})
+const props = defineProps({movieLock: Object})
 const emits = defineEmits(['toggleAddQuote'])
 const userStore = useUserStore();
+const quoteStore = useQuoteStore();
 
 const image = ref(null);
 const quoteEn = ref('');
@@ -50,11 +53,18 @@ const selectedMovie = ref(props.movieLock?.poster ? props.movieLock : null)
 const submitForm = () => {
   const formData = new FormData();
   formData.append('image', image.value);
-  formData.append('quote_en', quoteEn.value );
-  formData.append('quote_ka', quoteKa.value );
+  formData.append('quote_en', quoteEn.value);
+  formData.append('quote_ka', quoteKa.value);
   formData.append('movie_id', selectedMovie.value.id);
   formData.append('user_id', userStore.getUserID);
   storeQuote(formData)
+
+  const fileReader = new FileReader();
+  fileReader.onload = () => {
+    let imageAsDataUrl = fileReader.result;
+    quoteStore.addQuote(selectedMovie.value.id, quoteEn.value, quoteKa.value, imageAsDataUrl);
+  };
+  fileReader.readAsDataURL(image.value);
   toggleAddQuote(false)
 }
 
