@@ -67,6 +67,7 @@ const movieStore = useMoviesStore();
 const languageStore = useLanguageStore();
 
 const router = useRouter();
+const props = defineProps({search:String});
 
 const storeComment = (event, meta, values) => {
   if (meta.valid) {
@@ -98,7 +99,35 @@ const handleLike = async (quoteId) => {
 
 const userStore = useUserStore();
 const quoteList = computed(() => {
-  return quoteStore.getQuotes;
+  const quotes = quoteStore.getQuotes;
+  const prefix = props.search[0];
+  let query = null;
+  if (prefix === '#' || prefix === "@"){
+    query = props.search.slice(1);
+  }else{
+    query = props.search;
+  }
+
+
+  // if there is no search query, return all quotes
+  if (!query) return quotes;
+
+  if(prefix === '@'){
+    return quotes.filter(quote =>
+        quote.movie.title.en.toLowerCase().includes(query.toLowerCase()) ||
+        quote.movie.title.ka.toLowerCase().includes(query.toLowerCase()) ||
+        quote.movie.director.ka.toLowerCase().includes(query.toLowerCase()) ||
+        quote.movie.director.en.toLowerCase().includes(query.toLowerCase()) ||
+        quote.movie.description.ka.toLowerCase().includes(query.toLowerCase()) ||
+        quote.movie.description.en.toLowerCase().includes(query.toLowerCase())
+    );
+  } else {
+    return quotes.filter(quote =>
+        quote.quote.en.toLowerCase().includes(query.toLowerCase()) ||
+        quote.quote.ka.toLowerCase().includes(query.toLowerCase())
+    );
+  }
+
 })
 </script>
 <style scoped>

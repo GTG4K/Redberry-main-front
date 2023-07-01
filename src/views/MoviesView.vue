@@ -4,14 +4,22 @@
     <NavigationBar></NavigationBar>
     <aside class="col-start-2 col-span-5 py-5">
       <div class="flex justify-between">
-        <h2 class="text-white">My List of movies (Total {{movieList.length}})</h2>
-        <BaseButton @click="toggleAddMovie" color="red">new movie</BaseButton>
+        <h2 class="text-white">My List of movies (Total {{ movieList.length }})</h2>
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-2">
+            <img src="../assets/svg/input-search.svg" alt="search" class="w-5 h-5">
+            <input type="text" v-model="search" placeholder="Search"
+                   class="bg-transparent outline-0 py-1 w-[6rem] text-white transition-all border-white focus:w-72 focus:border-b">
+          </div>
+          <BaseButton @click="toggleAddMovie" color="red">new movie</BaseButton>
+        </div>
       </div>
       <div class="grid grid-cols-3 pt-10 gap-6">
-        <div v-for="movie in movieList" :key="movie.id" class="flex flex-col gap-2 hover:scale-105 transition-all" @click="router.push(`/movies/${movie.slug}`)">
+        <div v-for="movie in movieList" :key="movie.id" class="flex flex-col gap-2 hover:scale-105 transition-all"
+             @click="router.push(`/movies/${movie.slug}`)">
           <img :src="movie.poster" alt="movie poster" class=" w-full h-80 object-cover cursor-pointer rounded">
-          <h2 class="text-white text-2xl">{{movie.title[languageStore.getLanguage]}} ({{movie.release_date}})</h2>
-          <h2 class="text-white text-md">{{movie.quotes.length}} quotes(s)</h2>
+          <h2 class="text-white text-2xl">{{ movie.title[languageStore.getLanguage] }} ({{ movie.release_date }})</h2>
+          <h2 class="text-white text-md">{{ movie.quotes.length }} quotes(s)</h2>
         </div>
       </div>
     </aside>
@@ -29,6 +37,7 @@ import {useLanguageStore} from "@/stores/language";
 import BaseButton from "@/components/BaseButton.vue";
 import NewMovieModal from "@/components/NewMovieModal.vue";
 
+const search = ref(null);
 const addMovie = ref(false);
 const toggleAddMovie = (value) => {
   value ? addMovie.value = value : addMovie.value = !addMovie.value;
@@ -38,7 +47,15 @@ const router = useRouter();
 const movieStore = useMoviesStore();
 const languageStore = useLanguageStore()
 const movieList = computed(() => {
-  return movieStore.getUserMovies;
+  const movies = movieStore.getUserMovies;
+  const query = search.value;
+  if (!query) return movies;
+  return movies.filter(movie =>
+      movie.title.en.toLowerCase().includes(query.toLowerCase()) ||
+      movie.title.ka.toLowerCase().includes(query.toLowerCase()) ||
+      movie.director.ka.toLowerCase().includes(query.toLowerCase()) ||
+      movie.director.en.toLowerCase().includes(query.toLowerCase())
+  );
 })
 
 

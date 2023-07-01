@@ -2,7 +2,7 @@
   <div>
     <div
         class="fixed bg-backdrop top-[4.5rem] left-1/2 -translate-x-1/2 w-1/2 text-white z-30 rounded-xl max-h-[45rem] overflow-y-auto">
-      <h2 class="py-6 text-center">Add New Movie</h2>
+      <h2 class="py-6 text-center">Edit Movie</h2>
       <div class="h-0.5 w-full bg-white/20"></div>
       <form class="p-5 flex flex-col gap-5" @submit.prevent="submitForm">
         <div class="flex items-center gap-4">

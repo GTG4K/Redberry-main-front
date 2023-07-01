@@ -11,12 +11,12 @@
         </div>
         <div class="flex gap-2 items-center cursor-pointer w-[75%] border-b-2 border-white/50">
           <img src="../assets/svg/input-search.svg" alt="input icon" class="w-6">
-          <input type="text" class="text-white w-full py-3 bg-transparent outline-0 pl-2"
+          <input type="text" class="text-white w-full py-3 bg-transparent outline-0 pl-2" v-model="search"
                  placeholder="Enter @ to search movies, Enter # to search quotes">
         </div>
       </div>
       <div class="flex flex-col gap-8 relative">
-        <QuotesComponent/>
+        <QuotesComponent :search="search"/>
         <NewQuoteModal v-if="addQuote" @toggleAddQuote="toggleAddQuote"/>
       </div>
     </aside>
@@ -29,6 +29,8 @@ import NavigationBar from "@/components/NavigationBar.vue";
 import QuotesComponent from "@/components/QuotesComponent.vue";
 import {ref} from "vue";
 import NewQuoteModal from "@/components/NewQuoteModal.vue";
+
+const search = ref('');
 
 const addQuote = ref(false);
 const toggleAddQuote = (value) => {
