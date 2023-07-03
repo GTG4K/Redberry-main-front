@@ -6,23 +6,24 @@
       <form class="flex flex-col gap-4" @submit="handleSubmit($event, formSubmit(meta, values))">
         <TextInput name="email" placeholder="Enter your email" rules="required|email"/>
         <TextInput name="password" placeholder="Password" type="password" rules="required"/>
-        <BaseButton submit color="red">Sign in</BaseButton>
-        <div>
-          <div class="flex justify-between">
-            <div class="flex gap-2 align-center">
-              <Field type="checkbox" name="remember"></Field>
-              <label for="remember" class="text-white text-sm">Remember me</label>
-            </div>
-            <p class="text-blue-500 text-sm cursor-pointer hover:text-blue-400"
-               @click="emit('setDialog','forgot')">Forgot password</p>
+        <div class="flex justify-between">
+          <div class="flex gap-2 items-center">
+            <Field type="checkbox" name="remember"></Field>
+            <label for="remember" class="text-white sm:text-sm text-xs">Remember me</label>
           </div>
+          <p class="text-blue-500 sm:text-sm text-xs cursor-pointer hover:text-blue-400"
+             @click="emit('setDialog','forgot')">Forgot password</p>
         </div>
-        <BaseButton><img src="../assets/svg/google.svg" alt="google logo">
-          <p>Sign in with Google</p></BaseButton>
+        <BaseButton submit color="red">Sign in</BaseButton>
+
+        <BaseButton>
+          <img src="../assets/svg/google.svg" alt="google logo">
+          <p>Sign in with Google</p>
+        </BaseButton>
         <div class="flex gap-2 justify-center pt-3">
-          <p class="text-gray-500 text-sm align-center">Don't have an account?</p>
-          <p class="text-blue-500 text-sm cursor-pointer hover:text-blue-400" @click="emit('setDialog','sign_up')">Sign
-            up</p>
+          <p class="text-gray-500 sm:text-sm text-xs align-center">Don't have an account?</p>
+          <p class="text-blue-500 sm:text-sm text-xs cursor-pointer hover:text-blue-400"
+             @click="emit('setDialog','sign_up')">Sign up</p>
         </div>
       </form>
     </Form>
@@ -48,7 +49,7 @@ const formSubmit = async (meta, values) => {
       password: values.password,
     }
     const user = await login(payload);
-    if(user){
+    if (user) {
       userStore.setUser(user);
       router.push({name: 'home'});
     }

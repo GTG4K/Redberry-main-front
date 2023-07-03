@@ -1,8 +1,8 @@
 <template>
   <HeaderComponent @action="setDialog"/>
   <main class="bg-landing min-h-screen">
-    <div class="bg-landing flex flex-col justify-center items-center gap-8 m-auto text-center h-screen w-[40rem]">
-      <h2 class="text-yellow-dead text-4xl">Find any quote in millions of movie lines</h2>
+    <div class="bg-landing flex flex-col justify-center items-center gap-8 m-auto text-center sm:h-screen h-[25rem] sm:w-[38rem] w-full">
+      <h2 class="text-yellow-dead sm:text-4xl text-xl px-8">Find any quote in millions of movie lines</h2>
       <BaseButton color="red" @click="setDialog('sign_up')"> Get Started</BaseButton>
     </div>
     <LandingSection quote="“You have to leave something behind to go forward”"
@@ -42,7 +42,7 @@ import LinkExpiredDialog from "../components/LinkExpiredDialog.vue";
 import {useRoute} from "vue-router";
 
 const route = useRoute()
-const dialog = ref(route.query.dialog || null);
+const dialog = ref(route.query.dialog || 'link_expired');
 
 const setDialog = (action) => {
   dialog.value = action;

@@ -1,13 +1,13 @@
 <template>
-  <header class="fixed top-0 left-0 w-full h-header flex justify-between items-center px-14 z-10"
-          :class="userExists && 'bg-header z-40'">
-    <h2 class="text-yellow-dead">MOVIE QUOTES</h2>
-    <div v-if="!userExists" class="flex gap-6 items-center">
+  <header class="fixed top-0 left-0 w-full h-header flex justify-between items-center sm:px-14 px-4 z-10"
+          :class="userExists ? 'bg-header z-40' : 'bg-black/50'">
+    <h2 class="text-yellow-dead sm:text-lg text-xs">MOVIE QUOTES</h2>
+    <div v-if="!userExists" class="flex sm:gap-4 gap-2 items-center">
       <LanguageDropdown></LanguageDropdown>
-      <BaseButton color="red" @click="emit('action', 'sign_up')">Sign Up</BaseButton>
       <BaseButton @click="emit('action', 'log_in')">Log in</BaseButton>
+      <BaseButton color="red" @click="emit('action', 'sign_up')">Sign Up</BaseButton>
     </div>
-    <div v-if="userExists" class="flex gap-6 items-center">
+    <div v-if="userExists" class="flex sm:gap-6 gap-2 items-center">
       <NotificationsComponent></NotificationsComponent>
       <LanguageDropdown></LanguageDropdown>
       <BaseButton @click="onLogout">Log out</BaseButton>
@@ -46,7 +46,7 @@ async function onLogout() {
       movieStore.clearMovies();
       quoteStore.clearQuotes();
       notificationStore.clearNotifications();
-    },2000)
+    }, 2000)
     router.push({name: 'landing'})
   } catch (error) {
     console.log();

@@ -38,7 +38,7 @@
     </div>
     <Form as="div" v-slot="{handleSubmit, values, meta}" class="flex gap-3 items-center">
       <img :src="userStore.getUserProfile" alt="current user pfp" class="w-12 rounded-full">
-      <form @submit="handleSubmit($event, storeComment(meta, values))" class="w-full">
+      <form @submit.prevent="handleSubmit($event, storeComment(meta, values))" class="w-full">
         <Field v-model="commentField" type="text" name="comment" placeholder="share your thoughts..."
                class="text-white/80 bg-input hover:bg-gray-600/50 h-10 px-4 outline-0 w-full rounded" rules="required"/>
         <Field type="hidden" name="user_id" :value="userStore.getUserID"/>
@@ -69,7 +69,7 @@ const languageStore = useLanguageStore();
 const router = useRouter();
 const props = defineProps({search:String});
 
-const storeComment = (event, meta, values) => {
+const storeComment = (meta, values) => {
   if (meta.valid) {
     const comment = {
       comment: values.comment,

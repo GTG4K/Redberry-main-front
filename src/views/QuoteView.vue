@@ -96,7 +96,7 @@
           <!-- write comment -->
           <Form v-if="!editMode" as="div" v-slot="{handleSubmit, values, meta}" class="flex gap-3 items-center">
             <img :src="userStore.getUserProfile" alt="current user pfp" class="w-12 rounded-full">
-            <form @submit="handleSubmit($event, storeComment($event, meta, values))" class="w-full">
+            <form @submit.prevent="handleSubmit($event, storeComment($event, meta, values))" class="w-full">
               <Field v-model="commentField" type="text" name="comment" placeholder="share your thoughts..."
                      class="text-white/80 bg-input hover:bg-gray-600/50 h-10 px-4 outline-0 w-full rounded"
                      rules="required"/>
