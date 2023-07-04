@@ -2,9 +2,9 @@
   <HeaderComponent/>
   <main class="bg-background pt-header grid grid-cols-6 min-h-screen">
     <NavigationBar></NavigationBar>
-    <aside class="col-span-5 flex flex-col gap-6 py-5 pr-14">
+    <aside class="col-start-2 col-span-5 flex flex-col gap-6 py-5 pr-14">
       <h2 class="text-white">Movie description</h2>
-      <MovieStats :movie="selectedMovie"></MovieStats>
+      <MovieStats :movie="selectedMovie" @toggleEditMovie="toggleEditMovie"></MovieStats>
       <div class="flex items-center gap-4">
         <h2 class="text-white text-xl">Quotes (total {{ selectedMovie.quotes.length }})</h2>
         <div class="w-0.5 h-full bg-white/20"></div>
@@ -13,6 +13,7 @@
       <MovieQuotes :movie="selectedMovie"></MovieQuotes>
     </aside>
   </main>
+  <EditMovieModal v-if="editMovie" :movieId="selectedMovie.id" @toggleEditMovie="toggleEditMovie"></EditMovieModal>
   <NewQuoteModal v-if="addQuote" :movieLock="selectedMovie" @toggleAddQuote="toggleAddQuote"/>
 </template>
 <script setup>
@@ -26,17 +27,24 @@ import BaseButton from "@/components/BaseButton.vue";
 import MovieStats from "@/components/MovieStats.vue";
 import MovieQuotes from "@/components/MovieQuotes.vue";
 import NewQuoteModal from "@/components/NewQuoteModal.vue";
+import EditMovieModal from "@/components/EditMovieModal.vue";
 
 const route = useRoute();
 const movieStore = useMoviesStore();
 
 const addQuote = ref(false);
+const editMovie = ref(false);
+
+const toggleEditMovie  = (value) => {
+  value ? editMovie.value = value : editMovie.value = !editMovie.value;
+}
+
 const toggleAddQuote = (value) => {
   value ? addQuote.value = value : addQuote.value = !addQuote.value;
 }
 
 const selectedMovie = computed(() => {
-  return movieStore.getMovie(route.params.slug)
+  return movieStore.getMovieBySlug(route.params.slug)
 })
 
 </script>

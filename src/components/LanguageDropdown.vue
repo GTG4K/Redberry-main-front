@@ -1,8 +1,8 @@
 <template>
   <div class="relative">
     <div @click="toggleDropdown"
-         class="flex justify-between gap-2 px-2 py-1 rounded w-28 border border-white cursor-pointer select-none">
-      <h2 class="text-white text-sm">{{ selectedValue }}</h2>
+         class="flex justify-between sm:gap-2 gap-1 sm:px-2 px-1 py-1 rounded sm:w-28 w-[4.4rem] border border-white cursor-pointer select-none">
+      <h2 class="text-white text-sm">{{ selectedValue === 'English' ? 'Eng' : 'Geo' }}</h2>
       <img src="../assets/svg/down-arrow.svg" alt="down arrow" class="transition-all" :class="{'rotate-180':dropdownActive}">
     </div>
     <div class="transition-all overflow-hidden absolute top-9 text-white rounded bg-header"

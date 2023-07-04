@@ -1,5 +1,5 @@
 <template>
-  <button :type="props.submit ? 'submit' : 'button'" class="text-white h-8 min-w-[80px] px-3 rounded text-sm flex justify-center items-center gap-2" :class="buttonTheme">
+  <button :type="props.submit ? 'submit' : 'button'" class="text-white h-8 sm:min-w-[6rem] min-w-[4rem] sm:px-3 px-1.5 rounded sm:text-sm text-xs flex justify-center items-center gap-2" :class="buttonTheme">
     <slot></slot>
   </button>
 </template>

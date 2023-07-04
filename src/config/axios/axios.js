@@ -11,7 +11,9 @@ const instance = axios.create({
 
 const formDataInstance = axios.create({
     baseURL: 'http://localhost:8000/',
-    headers: {"Content-Type": "multipart/form-data"},
+    headers: {
+        "Content-Type": "multipart/form-data"
+    },
 });
 
 export {instance, formDataInstance}

@@ -12,12 +12,13 @@
     </p>
     <img :src="quote.image" alt="movie poster" class="rounded-xl w-full">
     <div class="flex gap-4 text-white">
-      <div class="flex gap-2 items-center py-2 px-4 rounded-full transition-all cursor-pointer hover:bg-blue-400/10">
+      <div class="flex gap-2 items-center py-2 px-4 rounded-full transition-all cursor-pointer hover:bg-blue-400/10"
+           @click="router.push(`/quote/${quote.id}`)">
         <h1 class="text-lg select-none">{{ quote.comments.length }} </h1>
         <img src="../assets/svg/comment.svg" alt="comment" class="w-5 h-5">
       </div>
-      <div @click="handleLike(quote.id)"
-           class="flex gap-2 items-center py-2 px-4 rounded-full transition-all cursor-pointer hover:bg-pink-400/10">
+      <div class="flex gap-2 items-center py-2 px-4 rounded-full transition-all cursor-pointer hover:bg-pink-400/10"
+           @click="handleLike(quote.id)">
         <h1 class="text-lg select-none">{{ quote.likes.length }}</h1>
         <img src="../assets/svg/heart.svg" alt="heart" class="w-5 h-5" :class="{'pink': quote.likedByAuthUser}">
       </div>
@@ -37,7 +38,7 @@
     </div>
     <Form as="div" v-slot="{handleSubmit, values, meta}" class="flex gap-3 items-center">
       <img :src="userStore.getUserProfile" alt="current user pfp" class="w-12 rounded-full">
-      <form @submit="handleSubmit($event, storeComment(meta, values))" class="w-full">
+      <form @submit.prevent="handleSubmit($event, storeComment(meta, values))" class="w-full">
         <Field v-model="commentField" type="text" name="comment" placeholder="share your thoughts..."
                class="text-white/80 bg-input hover:bg-gray-600/50 h-10 px-4 outline-0 w-full rounded" rules="required"/>
         <Field type="hidden" name="user_id" :value="userStore.getUserID"/>
@@ -66,6 +67,7 @@ const movieStore = useMoviesStore();
 const languageStore = useLanguageStore();
 
 const router = useRouter();
+const props = defineProps({search:String});
 
 const storeComment = (meta, values) => {
   if (meta.valid) {
@@ -97,7 +99,35 @@ const handleLike = async (quoteId) => {
 
 const userStore = useUserStore();
 const quoteList = computed(() => {
-  return quoteStore.getQuotes;
+  const quotes = quoteStore.getQuotes;
+  const prefix = props.search[0];
+  let query = null;
+  if (prefix === '#' || prefix === "@"){
+    query = props.search.slice(1);
+  }else{
+    query = props.search;
+  }
+
+
+  // if there is no search query, return all quotes
+  if (!query) return quotes;
+
+  if(prefix === '@'){
+    return quotes.filter(quote =>
+        quote.movie.title.en.toLowerCase().includes(query.toLowerCase()) ||
+        quote.movie.title.ka.toLowerCase().includes(query.toLowerCase()) ||
+        quote.movie.director.ka.toLowerCase().includes(query.toLowerCase()) ||
+        quote.movie.director.en.toLowerCase().includes(query.toLowerCase()) ||
+        quote.movie.description.ka.toLowerCase().includes(query.toLowerCase()) ||
+        quote.movie.description.en.toLowerCase().includes(query.toLowerCase())
+    );
+  } else {
+    return quotes.filter(quote =>
+        quote.quote.en.toLowerCase().includes(query.toLowerCase()) ||
+        quote.quote.ka.toLowerCase().includes(query.toLowerCase())
+    );
+  }
+
 })
 </script>
 <style scoped>
