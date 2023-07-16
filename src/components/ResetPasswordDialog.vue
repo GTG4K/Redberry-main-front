@@ -18,9 +18,23 @@ import {Form} from "vee-validate";
 import FormDialog from "./FormDialog.vue";
 import TextInput from "./TextInput.vue";
 import BaseButton from "./BaseButton.vue";
+import {resetPassword} from "@/services/auth";
+import {useRoute} from "vue-router";
 
-const formSubmit = (meta, values) => {
-  console.log(meta, values);
+const route = useRoute();
+
+const formSubmit = async (meta, values) => {
+  console.log(route.query.email,);
+  console.log(route.query.token,)
+  const data = {
+    password: values.password,
+    password_confirmation: values.password_confirmation,
+    email: route.query.email,
+    token: route.query.token,
+  }
+
+  await resetPassword(data);
+  emit("setDialog", 'password_changed');
 }
 
 const emit = defineEmits(['setDialog']);

@@ -1,9 +1,9 @@
 <template>
-  <HeaderComponent/>
-  <main class="bg-background pt-header grid grid-cols-4 min-h-screen">
-    <NavigationBar></NavigationBar>
-    <aside class="col-start-2 col-span-2 py-5">
-      <div class="w-full bg-backdrop rounded text-white">
+  <HeaderComponent v-if="!styleStore.deviceIsMobile"/>
+  <main class="bg-background sm:pt-header min-h-screen sm:px-3">
+    <NavigationBar v-if="!styleStore.deviceIsMobile"></NavigationBar>
+    <aside class="lg:pl-72 sm:pl-52 sm:py-5 flex flex-col gap-6">
+      <div class="lg:w-[calc(100vw/2)] bg-backdrop rounded text-white">
         <!-- header -->
         <div class="grid grid-cols-3 items-center p-4">
           <div v-if="!editMode && quote.user.id === userStore.getUserID" class="flex gap-2 min-h-4 items-center">
@@ -24,7 +24,7 @@
           </div>
           <div v-if="quote.user.id !== userStore.getUserID"></div>
           <h2 class="text-center select-none">Quote</h2>
-          <h2 class="text-end">close</h2>
+          <h2 class="text-end cursor-pointer" @click="handleBack">close</h2>
         </div>
         <div class="w-full h-0.5 bg-white/10"></div>
         <div class="p-4">
@@ -126,11 +126,13 @@ import {useMoviesStore} from "@/stores/Movies";
 import {deleteQuote, updateQuote} from "@/services/quotes";
 import router from "@/router";
 import BaseButton from "@/components/BaseButton.vue";
+import {useStyleStore} from "@/stores/style";
 
 const route = useRoute();
 const userStore = useUserStore();
 const quoteStore = useQuoteStore();
 const movieStore = useMoviesStore();
+const styleStore = useStyleStore();
 
 const commentField = ref('');
 const selectedQuoteId = ref(route.params.id)
@@ -146,6 +148,10 @@ watch(
 onBeforeUnmount(() => {
   stop()
 })
+
+const handleBack = () => {
+  editMode.value ? editMode.value = false : router.back();
+}
 
 const quote = computed(() => {
   return quoteStore.getQuoteById(selectedQuoteId.value);

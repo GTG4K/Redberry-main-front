@@ -16,7 +16,7 @@
         </div>
         <BaseButton submit color="red">Sign in</BaseButton>
 
-        <BaseButton>
+        <BaseButton href="http://localhost:8000/auth/google/redirect">
           <img src="../assets/svg/google.svg" alt="google logo">
           <p>Sign in with Google</p>
         </BaseButton>

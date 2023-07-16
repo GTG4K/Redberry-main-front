@@ -1,5 +1,5 @@
 <template>
-  <div v-for="quote in quoteList" :key="quote.id" class="bg-backdrop rounded-xl p-5 flex flex-col gap-4">
+  <div v-for="quote in quoteList" :key="quote.id" class="bg-backdrop/50 sm:rounded-xl p-5 flex flex-col gap-4">
     <div class="flex gap-3 items-center">
       <img :src="quote.user.profile_picture" alt="user icon" class="w-12 rounded-full">
       <h3 class="text-white">{{ quote.user.name }}</h3>

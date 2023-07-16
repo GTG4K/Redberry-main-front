@@ -17,9 +17,11 @@ import {Form} from "vee-validate";
 import FormDialog from "./FormDialog.vue";
 import TextInput from "./TextInput.vue";
 import BaseButton from "./BaseButton.vue";
+import {forgotPassword} from "@/services/auth";
 
 const formSubmit = (meta, values) => {
-  console.log(meta, values);
+  forgotPassword(values.email);
+  emit('setDialog', 'recover_password');
 }
 
 const emit = defineEmits(['setDialog']);
