@@ -1,12 +1,12 @@
 <template>
-  <formDialog @close="emit('setDialog',null)" title="Forgot password?"
-              description="Enter the email and we’ll send an email with instructions to reset your password">
+  <formDialog @close="emit('setDialog',null)" :title="$t('message.forgot_password')"
+              :description="$t('message.forgot_password_description')">
     <Form as="div" v-slot="{ handleSubmit, values, meta }">
       <form @submit="handleSubmit($event, formSubmit(meta, values))" class="flex flex-col gap-4">
-        <TextInput name="email" placeholder="Enter your email" rules="required|email"/>
-        <BaseButton submit color="red">Send instruction</BaseButton>
+        <TextInput :title="$t('message.email')" name="email" :placeholder="$t('message.email')" rules="required|email"/>
+        <BaseButton submit color="red">{{ $t('message.send_instruction') }}</BaseButton>
         <BaseButton @click="emit('setDialog','log_in')" color="none"><img src="../assets/svg/back.svg" alt="back svg">
-          <p>Back to log in</p></BaseButton>
+          <p>{{ $t('message.log_in') }}</p></BaseButton>
       </form>
     </Form>
   </formDialog>

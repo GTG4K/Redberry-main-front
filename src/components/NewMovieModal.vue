@@ -5,7 +5,7 @@
         sm:w-1/2 text-white z-30 sm:rounded-xl sm:h-[41rem] overflow-y-auto
         w-screen top-0 left-0 h-screen">
       <div class="grid grid-cols-3 items-center">
-        <h2 class="py-6 text-center col-start-2">Add a new movie</h2>
+        <h2 class="py-6 text-center col-start-2">{{ $t('message.add_a_new_movie') }}</h2>
         <div class="flex justify-end items-center">
           <h2 @click="toggleAddMovie(false)" class="cursor-pointer hover:text-white text-white/50 pr-10">X</h2>
         </div>
@@ -18,48 +18,48 @@
         </div>
         <!--title-->
         <div class="relative w-full border border-white/20 rounded">
-          <input type="text" placeholder='Title in english' name="title_en" v-model="titleEn"
+          <input type="text" :placeholder="$t('message.titleEn')" name="title_en" v-model="titleEn"
                  class="w-[calc(100%-4rem)] py-1 bg-transparent outline-0 px-2 resize-none">
           <h2 class="absolute top-2 right-2 text-sm">ENG</h2>
         </div>
         <div class="relative w-full border border-white/20 rounded">
-          <input type="text" placeholder='Title in georgian' name="title_ka" v-model="titleKa"
+          <input type="text" :placeholder="$t('message.titleKa')" name="title_ka" v-model="titleKa"
                  class="w-[calc(100%-4rem)] py-1 bg-transparent outline-0 px-2 resize-none">
           <h2 class="absolute top-2 right-2 text-sm">GEO</h2>
         </div>
         <!--director-->
         <div class="relative w-full border border-white/20 rounded">
-          <input type="text" placeholder='Director in english' name="director_en" v-model="directorEn"
+          <input type="text" :placeholder="$t('message.directorEn')" name="director_en" v-model="directorEn"
                  class="w-[calc(100%-4rem)] py-1 bg-transparent outline-0 px-2 resize-none">
           <h2 class="absolute top-2 right-2 text-sm">ENG</h2>
         </div>
         <div class="relative w-full border border-white/20 rounded">
-          <input type="text" placeholder='Director in georgian' name="director_ka" v-model="directorKa"
+          <input type="text" :placeholder="$t('message.directorKa')" name="director_ka" v-model="directorKa"
                  class="w-[calc(100%-4rem)] py-1 bg-transparent outline-0 px-2 resize-none">
           <h2 class="absolute top-2 right-2 text-sm">GEO</h2>
         </div>
         <!--release date and genre -->
         <div class="relative w-full border border-white/20 rounded">
-          <input type="number" placeholder='select release date' name="release_date" v-model="releaseDate"
-                 class="w-full py-1 bg-transparent outline-0 px-2 resize-none">
+          <input type="number" :placeholder="$t('message.release_date')" name="release_date" v-model="releaseDate"
+                 class="w-full py-1 bg-transparent  text-sm outline-0 px-2 resize-none">
         </div>
         <div class="relative w-full border border-white/20 rounded">
-          <input type="text" placeholder='select genre' name="genre" v-model="genre"
-                 class="w-full py-1 bg-transparent outline-0 px-2 resize-none">
+          <input type="text" :placeholder="$t('message.genre')" name="genre" v-model="genre"
+                 class="w-full py-1 bg-transparent  text-sm outline-0 px-2 resize-none">
         </div>
         <!--description-->
         <div class="relative w-full border border-white/20 rounded">
-          <textarea placeholder='Description in english' name="description_en" v-model="descriptionEn"
-                    class="w-[calc(100%-4rem)] py-1 h-14 bg-transparent outline-0 px-2 resize-none"></textarea>
+          <textarea :placeholder="$t('message.descriptionEn')" name="description_en" v-model="descriptionEn"
+                    class="w-[calc(100%-4rem)] py-1 h-14 text-sm bg-transparent outline-0 px-2 resize-none"></textarea>
           <h2 class="absolute top-2 right-2 text-sm">ENG</h2>
         </div>
         <div class="relative w-full border border-white/20 rounded">
-          <textarea placeholder='Description in georgian' name="description_ka" v-model="descriptionKa"
-                    class="w-[calc(100%-4rem)] py-1 h-14 bg-transparent outline-0 px-2 resize-none"></textarea>
+          <textarea :placeholder="$t('message.descriptionKa')"  name="description_ka" v-model="descriptionKa"
+                    class="w-[calc(100%-4rem)] py-1 h-14  text-sm bg-transparent outline-0 px-2 resize-none"></textarea>
           <h2 class="absolute top-2 right-2 text-sm">GEO</h2>
         </div>
         <BaseFile v-model="image"></BaseFile>
-        <BaseButton submit color="red">Submit quote</BaseButton>
+        <BaseButton submit color="red">{{ $t('message.submit') }}</BaseButton>
       </form>
     </div>
     <div @click="toggleAddMovie(false)"

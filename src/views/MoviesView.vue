@@ -5,19 +5,19 @@
     <aside class="sm:pl-52 py-5">
       <div class="flex flex-col gap-2">
         <div class="flex justify-between">
-          <h2 class="text-white">My List of movies (Total {{ movieList.length }})</h2>
+          <h2 class="text-white">{{ $t('message.my_list_of_movies') }} ({{ $t('message.total') }} {{ movieList.length }})</h2>
           <div class="flex items-center gap-4">
             <div class="flex items-center gap-2">
               <img v-if="!styleStore.deviceIsMobile" src="../assets/svg/input-search.svg" alt="search" class="w-5 h-5">
-              <input v-if="!styleStore.deviceIsMobile" type="text" v-model="search" placeholder="Search"
+              <input v-if="!styleStore.deviceIsMobile" type="text" v-model="search" :placeholder="$t('message.search')"
                      class="bg-transparent outline-0 py-1 w-[6rem] text-white transition-all border-white focus:w-72 focus:border-b">
             </div>
-            <BaseButton @click="toggleAddMovie" color="red">new movie</BaseButton>
+            <BaseButton @click="toggleAddMovie" color="red">{{ $t('message.new_movie') }}</BaseButton>
           </div>
         </div>
         <div class="flex items-center gap-2">
           <img v-if="styleStore.deviceIsMobile" src="../assets/svg/input-search.svg" alt="search" class="w-5 h-5">
-          <input v-if="styleStore.deviceIsMobile" type="text" v-model="search" placeholder="Search"
+          <input v-if="styleStore.deviceIsMobile" type="text" v-model="search" :placeholder="$t('message.search')"
                  class="bg-transparent outline-0 py-1 w-[6rem] text-white transition-all border-white focus:w-full focus:border-b">
         </div>
       </div>
@@ -26,7 +26,7 @@
              @click="router.push(`/movies/${movie.slug}`)">
           <img :src="movie.poster" alt="movie poster" class=" w-full h-80 object-cover cursor-pointer rounded">
           <h2 class="text-white text-2xl">{{ movie.title[languageStore.getLanguage] }} ({{ movie.release_date }})</h2>
-          <h2 class="text-white text-md">{{ movie.quotes.length }} quotes(s)</h2>
+          <h2 class="text-white text-md">{{ movie.quotes.length }} {{ $t('message.quotes') }}</h2>
         </div>
       </div>
     </aside>

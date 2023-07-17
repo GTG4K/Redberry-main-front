@@ -4,78 +4,95 @@
     <NavigationBar v-if="!styleStore.deviceIsMobile"></NavigationBar>
     <aside class="sm:pl-52 py-5 flex justify-center">
       <div class="sm:w-[40rem] w-full">
-        <h2 class="text-white">My profile</h2>
+        <h2 class="text-white">{{ $t('message.my_profile') }}</h2>
         <div class="bg-black/25 rounded relative w-full mt-20 flex items-center justify-center">
           <div class="absolute sm:-top-20 -top-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
             <img :src="profilePicture" alt="user profile picture"
                  class="sm:w-40 sm:h-40 w-20 h-20 object-cover rounded-full">
             <input id="profile_picture" name="profile_picture" type="file" class="hidden"
                    @change="changeProfilePicture"/>
-            <label for="profile_picture" class="text-white/75 text-md font cursor-pointer hover:text-white">Upload new
-              photo</label>
+            <label for="profile_picture" class="text-white/75 text-md font cursor-pointer hover:text-white">{{
+                $t('message.upload_new_photo')
+              }}</label>
           </div>
           <Form as="div" v-slot="{handleSubmit, values, meta}" class="sm:w-2/3 w-full sm:px-0 px-5 pt-36 pb-20">
             <form class="flex flex-col gap-3" id="userDetails"
                   @submit.prevent="handleSubmit($event, handleUserUpdate(meta, values))">
               <div v-if="!editName" class="flex flex-col gap-2">
-                <label class="text-white sm:text-sm text-xs">Name</label>
+                <label class="text-white sm:text-sm text-xs">{{ $t('message.name') }}</label>
                 <div class="flex items-center gap-3">
                   <h2 class="bg-form-input text-sm placeholder-font-text p-2 rounded w-full placeholder-form-text">
                     {{ userStore.getUserName }}</h2>
-                  <h2 @click="toggleEdit('name')" class="text-white cursor-pointer text-xs">Edit</h2>
+                  <h2 @click="toggleEdit('name')" class="text-white cursor-pointer text-xs">{{
+                      $t('message.edit')
+                    }}</h2>
                 </div>
               </div>
-              <TextInput v-else :placeholder="userStore.getUserName" name="name"
+              <TextInput v-else :placeholder="userStore.getUserName" :title="$t('message.name')" name="name"
                          rules="required|min:3|max:15"></TextInput>
               <div v-if="!editEmail" class="flex flex-col gap-2">
-                <label class="text-white sm:text-sm text-xs">Email</label>
+                <label class="text-white sm:text-sm text-xs">{{ $t('message.email') }}</label>
                 <div class="flex items-center gap-3">
                   <h2 class="bg-form-input text-sm placeholder-font-text p-2 rounded w-full placeholder-form-text">
                     {{ userStore.getUserEmail }}</h2>
-                  <h2 @click="toggleEdit('email')" class="text-white cursor-pointer text-xs">Edit</h2>
+                  <h2 @click="toggleEdit('email')" class="text-white cursor-pointer text-xs">{{
+                      $t('message.edit')
+                    }}</h2>
                 </div>
               </div>
-              <TextInput v-else :placeholder="userStore.getUserEmail" name="email" rules="required|email"></TextInput>
-              <h2 v-if="editEmailMessageSent" class="text-xs text-green-400">Check your Email</h2>
+              <TextInput v-else :placeholder="userStore.getUserEmail" :title="$t('message.email')" name="email"
+                         rules="required|email"></TextInput>
+              <h2 v-if="editEmailMessageSent" class="text-xs text-green-400">{{ $t('message.check_your_email')}}</h2>
 
               <div v-if="!editPassword" class="flex flex-col gap-2">
-                <label class="text-white sm:text-sm text-xs">Password</label>
+                <label class="text-white sm:text-sm text-xs">{{ $t('message.password') }}</label>
                 <div class="flex items-center gap-3">
                   <h2 class="bg-form-input text-sm placeholder-font-text p-2 rounded w-full placeholder-form-text">
                     ••••••••</h2>
-                  <h2 @click="toggleEdit('password')" class="text-white cursor-pointer text-xs">Edit</h2>
+                  <h2 @click="toggleEdit('password')" class="text-white cursor-pointer text-xs">{{
+                      $t('message.edit')
+                    }}</h2>
                 </div>
               </div>
               <div v-else class="flex flex-col gap-2">
                 <div class="flex flex-col gap-2">
-                  <label class="text-white sm:text-sm text-xs">Password</label>
+                  <label class="text-white sm:text-sm text-xs">{{ $t('message.password') }}</label>
                   <div class="flex items-center gap-3">
                     <h2 class="bg-form-input text-sm placeholder-font-text p-2 rounded w-full placeholder-form-text">
                       ••••••••</h2>
                   </div>
                 </div>
                 <div class="border border-white/20 text-white rounded p-4">
-                  <h2 class="text-xs pb-4">Passwords should contain:</h2>
+                  <h2 class="text-xs pb-4">{{ $t('message.passwords_should_contain') }}:</h2>
                   <div class="flex text-xs gap-2">
                     <h2>•</h2>
-                    <h2>8 or more characters</h2>
+                    <h2>{{ $t('message.character_amount') }}</h2>
                   </div>
                   <div class="flex text-xs gap-2">
                     <h2>•</h2>
-                    <h2>lowercase character</h2>
+                    <h2>{{ $t('message.lowercase_characters') }}</h2>
                   </div>
                 </div>
-                <TextInput name="password" placeholder="new password" rules="required|min:8"></TextInput>
-                <TextInput name="password_confirmation" placeholder="new password"
+                <TextInput :title="$t('message.password')" name="password" :placeholder="$t('message.password')"
+                           rules="required|min:8"></TextInput>
+                <TextInput :title="$t('message.password_confirmation')" name="password_confirmation"
+                           :placeholder="$t('message.password_confirmation')"
                            rules="required|confirmed:@password"></TextInput>
               </div>
             </form>
           </Form>
         </div>
         <div class="flex gap-2 justify-end pt-6">
-          <BaseButton v-if="changesActive || editProfilePicture" @click="clearEdit">Cancel</BaseButton>
-          <BaseButton v-if="changesActive" color="red" form="userDetails" submit>Save changes</BaseButton>
-          <BaseButton v-if="editProfilePicture" @click="handleSubmitProfilePicture" color="red">Save changes
+          <BaseButton v-if="changesActive || editProfilePicture" @click="clearEdit">{{
+              $t('message.cancel')
+            }}
+          </BaseButton>
+          <BaseButton v-if="changesActive" color="red" form="userDetails" submit>{{
+              $t('message.save_changes')
+            }}
+          </BaseButton>
+          <BaseButton v-if="editProfilePicture" @click="handleSubmitProfilePicture" color="red">
+            {{ $t('message.save_changes') }}
           </BaseButton>
         </div>
       </div>

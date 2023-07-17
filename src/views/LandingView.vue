@@ -3,8 +3,8 @@
   <main class="bg-landing min-h-screen">
     <div
         class="bg-landing flex flex-col justify-center items-center gap-8 m-auto text-center sm:h-screen h-[25rem] sm:w-[38rem] w-full">
-      <h2 class="text-yellow-dead sm:text-4xl text-xl px-8">Find any quote in millions of movie lines</h2>
-      <BaseButton color="red" @click="setDialog('sign_up')"> Get Started</BaseButton>
+      <h2 class="text-yellow-dead sm:text-4xl text-xl px-8">{{ $t("message.landing_title")}}</h2>
+      <BaseButton color="red" @click="setDialog('sign_up')">{{ $t("message.getting_started")}}</BaseButton>
     </div>
     <LandingSection quote="“You have to leave something behind to go forward”"
                     movie="Interstellar, 2014" :section="1"/>

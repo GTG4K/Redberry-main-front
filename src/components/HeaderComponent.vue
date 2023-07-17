@@ -6,8 +6,8 @@
 
       <div class="flex sm:gap-4 gap-2 items-center">
         <LanguageDropdown></LanguageDropdown>
-        <BaseButton @click="emit('action', 'log_in')">Log in</BaseButton>
-        <BaseButton color="red" @click="emit('action', 'sign_up')">Sign Up</BaseButton>
+        <BaseButton @click="emit('action', 'log_in')">{{ $t("message.log_in") }}</BaseButton>
+        <BaseButton color="red" @click="emit('action', 'sign_up')">{{ $t("message.register") }}</BaseButton>
       </div>
     </div>
     <!-- User logged in page -->
@@ -19,7 +19,7 @@
         <img v-if="styleStore.deviceIsMobile" src="../assets/svg/input-search.svg" alt="Search">
         <NotificationsComponent></NotificationsComponent>
         <LanguageDropdown v-if="!styleStore.deviceIsMobile"></LanguageDropdown>
-        <BaseButton v-if="!styleStore.deviceIsMobile" @click="onLogout">Log out</BaseButton>
+        <BaseButton v-if="!styleStore.deviceIsMobile" @click="onLogout">{{ $t("message.log_out") }}</BaseButton>
       </div>
     </div>
   </header>
@@ -30,20 +30,20 @@
         <div class="flex flex-col gap-1 justify-center">
           <h2 class="text-white">{{ userStore.getUserName }}</h2>
           <h3 @click="router.push({name: 'profile'})"
-              class="text-white/75 text-sm font cursor-pointer hover:text-white">Edit your profile</h3>
+              class="text-white/75 text-sm font cursor-pointer hover:text-white">{{ $t("message.edit_your_profile") }}</h3>
         </div>
       </div>
       <router-link :to="{name: 'home'}" class="flex gap-8 text-white items-center pl-3">
         <img src="../assets/svg/nav-home.svg" alt="home" class="w-6">
-        <h3 class="transition-all text-white/70 text-sm hover:text-white">News feed</h3>
+        <h3 class="transition-all text-white/70 text-sm hover:text-white">{{ $t("message.news_feed") }}</h3>
       </router-link>
       <router-link :to="{name: 'movies'}" class="flex gap-8 text-white items-center pl-3">
         <img src="../assets/svg/nav-movies.svg" alt="movies" class="w-6">
-        <h3 class="transition-all text-white/70 text-sm hover:text-white">List of movies</h3>
+        <h3 class="transition-all text-white/70 text-sm hover:text-white">{{ $t("message.list_of_movies") }}</h3>
       </router-link>
       <LanguageDropdown size="full"></LanguageDropdown>
     </nav>
-    <BaseButton color="red" @click="onLogout">Log out</BaseButton>
+    <BaseButton color="red" @click="onLogout">{{ $t("message.log_out") }}</BaseButton>
   </div>
   <div v-if="sidebarActive" class="fixed top-0 left-0 w-screen h-screen z-40 bg-black/20" @click="toggleSidebar"></div>
 </template>

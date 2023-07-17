@@ -4,16 +4,16 @@
       <img :src="userProfilePicture" alt="profile pic" class="w-12 object-cover rounded-full">
       <div class="flex flex-col gap-1 justify-center">
         <h2 class="text-white">{{ userProfileName }}</h2>
-        <h3 @click="router.push({name: 'profile'})" class="text-white/75 text-sm font cursor-pointer hover:text-white">Edit your profile</h3>
+        <h3 @click="router.push({name: 'profile'})" class="text-white/75 text-sm font cursor-pointer hover:text-white">{{ $t('message.edit_your_profile') }}</h3>
       </div>
     </div>
     <router-link :to="{name: 'home'}" class="flex gap-8 text-white items-center pl-3">
       <img src="../assets/svg/nav-home.svg" alt="home" class="w-6">
-      <h3 class="transition-all text-white/70 text-sm hover:text-white">News feed</h3>
+      <h3 class="transition-all text-white/70 text-sm hover:text-white">{{ $t('message.news_feed') }}</h3>
     </router-link>
     <router-link :to="{name: 'movies'}" class="flex gap-8 text-white items-center pl-3">
       <img src="../assets/svg/nav-movies.svg" alt="movies" class="w-6">
-      <h3 class="transition-all text-white/70 text-sm hover:text-white">List of movies</h3>
+      <h3 class="transition-all text-white/70 text-sm hover:text-white">{{ $t('message.list_of_movies') }}</h3>
     </router-link>
   </nav>
 </template>

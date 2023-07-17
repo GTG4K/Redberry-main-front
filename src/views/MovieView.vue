@@ -3,14 +3,14 @@
   <main class="bg-background pt-header min-h-screen px-3">
     <NavigationBar v-if="!styleStore.deviceIsMobile"></NavigationBar>
     <aside class="sm:pl-52 py-5 flex flex-col gap-6">
-      <h2 class="text-white">Movie description</h2>
+      <h2 class="text-white">{{$t("message.movie_description")}}</h2>
       <MovieStats :movie="selectedMovie" @toggleEditMovie="toggleEditMovie"></MovieStats>
       <div class="flex sm:flex-row sm:items-center sm:gap-4 gap-2 flex-col">
-        <h2 v-if="!styleStore.deviceIsMobile" class="text-white text-xl">Quotes (total {{ selectedMovie.quotes.length }})</h2>
+        <h2 v-if="!styleStore.deviceIsMobile" class="text-white text-xl">{{ $t('message.quotes') }} ({{$t('message.total')}} {{ selectedMovie.quotes.length }})</h2>
         <div v-if="!styleStore.deviceIsMobile" class="w-0.5 h-full bg-white/20"></div>
-        <BaseButton color="red" @click="toggleAddQuote">Add quote</BaseButton>
+        <BaseButton color="red" @click="toggleAddQuote">{{ $t('message.add_quote') }}</BaseButton>
         <div v-if="styleStore.deviceIsMobile" class="w-full h-0.5 bg-white/20 mt-6 mb-4"></div>
-        <h2 v-if="styleStore.deviceIsMobile" class="text-white text-sm">Quotes (total {{ selectedMovie.quotes.length }})</h2>
+        <h2 v-if="styleStore.deviceIsMobile" class="text-white text-sm">{{ $t('message.quotes') }} ({{$t('message.total')}} {{ selectedMovie.quotes.length }})</h2>
       </div>
       <MovieQuotes v-if="!styleStore.deviceIsMobile" :movie="selectedMovie"></MovieQuotes>
     </aside>

@@ -7,17 +7,17 @@
         :class="optionsOpen ? 'max-h-60 py-2 ' : 'max-h-0'">
       <div class="flex gap-4 items-center py-2 px-5 cursor-pointer hover:bg-white/10" @click="viewQuote(quote.id)">
         <img class="w-4 h-4" src="../assets/svg/eye.svg" alt="eyes">
-        <p class="text-xs">View Quote</p>
+        <p class="text-xs">{{ $t('message.view_quote') }}</p>
       </div>
       <div v-if="quote.user.id === userStore.getUserID" @click="editQuote(quote.id)"
            class="flex gap-4 items-center py-2 px-5 cursor-pointer hover:bg-white/10">
         <img class="w-4 h-4" src="../assets/svg/pencil.svg" alt="eyes">
-        <p class="text-xs">Edit</p>
+        <p class="text-xs">{{ $t('message.edit') }}</p>
       </div>
       <div v-if="quote.user.id === userStore.getUserID" @click="handleDeleteQuote(quote.id)"
            class="flex gap-4 items-center py-2 px-5 cursor-pointer hover:bg-red-400/10">
         <img class="w-4 h-4" src="../assets/svg/trash.svg" alt="eyes">
-        <p class="text-xs">Delete</p>
+        <p class="text-xs">{{ $t('message.delete') }}</p>
       </div>
     </div>
     <div class="sm:grid sm:grid-cols-6 gap-6 sm:items-center flex flex-col">

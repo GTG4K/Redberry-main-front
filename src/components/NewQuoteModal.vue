@@ -4,7 +4,7 @@
         sm:w-1/2 text-white z-30 sm:rounded-xl sm:h-[41rem] overflow-y-auto
         w-screen top-0 left-0 h-screen">
       <div class="grid grid-cols-3 items-center">
-        <h2 class="py-6 text-center col-start-2">Write a new quote</h2>
+        <h2 class="py-6 text-center col-start-2">{{ $t('message.add_a_new_quote') }}</h2>
         <div class="flex justify-end items-center">
           <h2 @click="toggleAddQuote(false)" class="cursor-pointer hover:text-white text-white/50 pr-10">X</h2>
         </div>
@@ -16,18 +16,18 @@
           <h2>{{ userStore.getUserName }}</h2>
         </div>
         <div class="relative w-full border border-white/20 rounded">
-                <textarea placeholder='Quote in english' name="quote_en" v-model="quoteEn"
+                <textarea :placeholder='$t("message.quoteEn")' name="quote_en" v-model="quoteEn"
                           class="w-[calc(100%-4rem)] h-20 bg-transparent outline-0 px-2 resize-none"></textarea>
           <h2 class="absolute top-2 right-2 text-sm">ENG</h2>
         </div>
         <div class="relative w-full border border-white/20 rounded">
-                <textarea placeholder='Quote in georgian' name="quote_ka" v-model="quoteKa"
+                <textarea :placeholder='$t("message.quoteKa")' name="quote_ka" v-model="quoteKa"
                           class="w-[calc(100%-4rem)] h-20 bg-transparent outline-0 px-2 resize-none"></textarea>
           <h2 class="absolute top-2 right-2 text-sm">GEO</h2>
         </div>
         <BaseFile v-model="image"></BaseFile>
         <MovieDropdown v-model="selectedMovie" :locked="props.movieLock" :movies="movieList"></MovieDropdown>
-        <BaseButton submit color="red">Submit quote</BaseButton>
+        <BaseButton submit color="red">{{ $t('message.submit') }}</BaseButton>
       </form>
     </div>
     <div @click="toggleAddQuote(false)"

@@ -11,9 +11,9 @@
          class="transition-all text-white absolute bg-black w-[35rem] -right-64 top-14 overflow-hidden px-5 rounded-xl"
          :class="{'max-h-[40rem] py-5': isActive, 'max-h-0': !isActive}">
       <div class="flex justify-between items-center pb-5">
-        <h2 class="select-none">Notifications</h2>
+        <h2 class="select-none">{{ $t('message.notifications') }}</h2>
         <h2 @click="handleAllNotificationsSeen"
-            class="hover:text-white text-white/80 select-none cursor-pointer underline text-xs">Mark all as read</h2>
+            class="hover:text-white text-white/80 select-none cursor-pointer underline text-xs">{{ $t('message.mark_all_read') }}</h2>
       </div>
       <div class="flex flex-col gap-3 max-h-[35rem] overflow-y-auto pr-2">
         <div v-for="notification in notifications" :key="notification.id"
@@ -25,16 +25,16 @@
               <h2 class="text-xs">{{ notification.sender.name }}</h2>
               <div v-if="notification.type === 'comment'" class="flex items-center gap-2">
                 <img src="../assets/svg/comment.svg" alt="comment" class="w-4 h-4">
-                <h2 class="text-xs">Commented on your quote</h2>
+                <h2 class="text-xs">{{ $t('message.commented_on_your_quote') }}</h2>
               </div>
               <div v-else class="flex items-center gap-2">
                 <img src="../assets/svg/heart.svg" alt="heart" class="w-4 h-4">
-                <h2 class="text-xs">Liked your quote</h2>
+                <h2 class="text-xs">{{ $t('message.liked_your_quote') }}</h2>
               </div>
             </div>
             <div class="flex flex-col gap-2 items-end">
               <h2 class="text-xs">{{ notification.timeAgo }}</h2>
-              <h2 v-if="!notification.is_read" class="text-xs text-green-500/80">New</h2>
+              <h2 v-if="!notification.is_read" class="text-xs text-green-500/80">{{ $t('message.new') }}</h2>
             </div>
           </div>
         </div>
@@ -44,9 +44,9 @@
          class="transition-all text-white fixed bg-black w-screen right-0 top-[60px] overflow-hidden px-5"
          :class="{'h-screen py-5': isActive, 'max-h-0': !isActive}">
       <div class="flex justify-between items-center pb-5">
-        <h2 class="select-none">Notifications</h2>
+        <h2 class="select-none">{{ $t('message.notifications') }}</h2>
         <h2 @click="handleAllNotificationsSeen"
-            class="hover:text-white text-white/80 select-none cursor-pointer underline text-xs">Mark all as read</h2>
+            class="hover:text-white text-white/80 select-none cursor-pointer underline text-xs">{{ $t('message.mark_all_read') }}</h2>
       </div>
       <div class="flex flex-col gap-3 max-h-[calc(100%-6rem)] overflow-y-auto pr-2">
         <div v-for="notification in notifications" :key="notification.id"
@@ -59,16 +59,16 @@
                 <h2 class="text-xs">{{ notification.sender.name }}</h2>
                 <div v-if="notification.type === 'comment'" class="flex items-center gap-2">
                   <img src="../assets/svg/comment.svg" alt="comment" class="w-4 h-4">
-                  <h2 class="text-xs">Commented on your quote</h2>
+                  <h2 class="text-xs">{{ $t('message.commented_on_your_quote') }}</h2>
                 </div>
                 <div v-else class="flex items-center gap-2">
                   <img src="../assets/svg/heart.svg" alt="heart" class="w-4 h-4">
-                  <h2 class="text-xs">Liked your quote</h2>
+                  <h2 class="text-xs">{{ $t('message.liked_your_quote') }}</h2>
                 </div>
               </div>
             </div>
             <div class="flex gap-2">
-              <h2 class="text-xs text-green-500/80 w-[4rem] text-center">{{notification.is_read === 0 ? 'New' : ''}}</h2>
+              <h2 class="text-xs text-green-500/80 w-[4rem] text-center">{{notification.is_read === 0 ? $('message.new') : ''}}</h2>
               <h2 class="text-xs">{{ notification.timeAgo }}</h2>
             </div>
           </div>

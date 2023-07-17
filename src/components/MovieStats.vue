@@ -18,7 +18,7 @@
         </div>
       </div>
       <h3 class="bg-gray-400 rounded text-white lg:text-md text-sm w-fit px-2 py-1">{{ props.movie.genre }}</h3>
-      <h2 class="lg:text-md text-sm text-white">Director: {{ props.movie.director[languageStore.getLanguage] }}</h2>
+      <h2 class="lg:text-md text-sm text-white">{{ $t('message.director') }}: {{ props.movie.director[languageStore.getLanguage] }}</h2>
       <p class="lg:text-md text-sm text-white">{{ props.movie.description[languageStore.getLanguage] }}</p>
     </div>
   </div>

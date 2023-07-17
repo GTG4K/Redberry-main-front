@@ -7,13 +7,13 @@
         <div @click="toggleAddQuote(true)"
              class="transition-all bg-input flex sm:rounded gap-2 p-3 items-center sm:w-auto w-full cursor-pointer hover:bg-gray-600/50">
           <img src="../assets/svg/input-icon.svg" alt="input icon" class="w-6">
-          <p class="text-white">Enter a quote</p>
+          <p class="text-white">{{ $t('message.add_quote') }}</p>
         </div>
         <div v-if="!styleStore.deviceIsMobile"
              class="flex gap-2 items-center cursor-pointer w-[75%] border-b-2 border-white/50">
           <img src="../assets/svg/input-search.svg" alt="input icon" class="w-6">
           <input type="text" class="text-white w-full py-3 bg-transparent outline-0 pl-2" v-model="search"
-                 placeholder="Enter @ to search movies, Enter # to search quotes">
+                 :placeholder="$t('message.search_placeholder')">
         </div>
       </div>
       <div class="flex flex-col gap-8 relative">
