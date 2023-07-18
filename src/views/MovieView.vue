@@ -40,6 +40,7 @@ const styleStore = useStyleStore();
 const addQuote = ref(false);
 const editMovie = ref(false);
 
+
 const toggleEditMovie  = (value) => {
   value ? editMovie.value = value : editMovie.value = !editMovie.value;
 }

@@ -38,23 +38,26 @@
 import NavigationBar from "@/components/NavigationBar.vue";
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import {useMoviesStore} from "@/stores/Movies";
-import {computed, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import {useRouter} from "vue-router";
 import {useLanguageStore} from "@/stores/language";
 import BaseButton from "@/components/BaseButton.vue";
 import NewMovieModal from "@/components/NewMovieModal.vue";
 import {useStyleStore} from "@/stores/style";
+import instantiatePusher from "@/helpers/instantiatePusher";
+import {useQuoteStore} from "@/stores/Quotes";
 
 const search = ref(null);
 const addMovie = ref(false);
 const styleStore = useStyleStore();
+const movieStore = useMoviesStore();
+const languageStore = useLanguageStore()
+
 const toggleAddMovie = (value) => {
   value ? addMovie.value = value : addMovie.value = !addMovie.value;
 }
 
 const router = useRouter();
-const movieStore = useMoviesStore();
-const languageStore = useLanguageStore()
 const movieList = computed(() => {
   const movies = movieStore.getUserMovies;
   const query = search.value;

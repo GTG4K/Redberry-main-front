@@ -21,11 +21,10 @@ async function register(data) {
 async function login(data) {
     try {
         await instance.get('/sanctum/csrf-cookie');
-        const response = await instance.post('api/login', data);
-        console.log(response);
+        await instance.post('api/login', data);
         return await user();
     } catch (error) {
-        console.log(error);
+        return error.response;
     }
 }
 

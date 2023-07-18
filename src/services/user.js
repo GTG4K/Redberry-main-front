@@ -9,4 +9,6 @@ async function updateUser(userId, data){
     }
 }
 
+
+
 export {updateUser}

@@ -52,7 +52,6 @@ const formSubmit = async (meta, values) => {
       console.log(response.status)
       emit('setDialog', 'activate_account');
     } else {
-      console.log(response.data)
       const firstErrorKey = Object.keys(response.data.errors)[0];
       warning.value = response.data.errors[firstErrorKey][0]
     }

@@ -32,16 +32,27 @@ import {onMounted, ref} from "vue";
 import NewQuoteModal from "@/components/NewQuoteModal.vue";
 import {useStyleStore} from "@/stores/style";
 import instantiatePusher from "@/helpers/instantiatePusher";
+import {useQuoteStore} from "@/stores/Quotes";
+import {useMoviesStore} from "@/stores/Movies";
 
 const search = ref('');
+const quoteStore = useQuoteStore();
+const movieStore = useMoviesStore();
 
 const addQuote = ref(false);
 const styleStore = useStyleStore();
 
-// const pusherActive = ref(false);
-// onMounted(()=>{
-//   pusherActive.value = instantiatePusher();
-// })
+onMounted(() => {
+  window.Echo.channel('likes').listen('ToggleLikeEvent', (data) => {
+    const {like, deleteLike} = data
+    deleteLike ? quoteStore.deleteLike(like) : quoteStore.addLike(like)
+  })
+  window.Echo.channel('comments').listen('AddCommentEvent', (data) => {
+    const {comment, quoteId, movieId} = data
+    quoteStore.addQuoteComment(quoteId, comment);
+    movieStore.addMovieComment(movieId, comment);
+  })
+})
 
 const toggleAddQuote = (value) => {
   value ? addQuote.value = value : addQuote.value = !addQuote.value;

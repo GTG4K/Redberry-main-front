@@ -68,7 +68,7 @@
               </div>
             </div>
             <div class="flex gap-2">
-              <h2 class="text-xs text-green-500/80 w-[4rem] text-center">{{notification.is_read === 0 ? $('message.new') : ''}}</h2>
+              <h2 class="text-xs text-green-500/80 w-[4rem] text-center">{{notification.is_read === 0 ? $t('message.new') : ''}}</h2>
               <h2 class="text-xs">{{ notification.timeAgo }}</h2>
             </div>
           </div>
@@ -80,10 +80,11 @@
 
 <script setup>
 import {useNotificationStore} from "@/stores/notifications";
-import {computed, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import router from "@/router";
 import {notificationAllSeen, notificationSeen} from "@/services/notifications";
 import {useStyleStore} from "@/stores/style";
+import instantiatePusher from "@/helpers/instantiatePusher";
 
 const notificationsStore = useNotificationStore()
 const newNotifications = computed(() => {
@@ -95,6 +96,13 @@ const notifications = computed(() => {
   return notificationData?.notifications
 })
 const styleStore = useStyleStore();
+
+onMounted(() => {
+  window.Echo.private('comments').listen('NewNotificationEvent', (data) => {
+    const {notification} = data
+    notificationsStore.addNotification(notification);
+  })
+})
 
 const viewNotification = (quoteId, notificationId) => {
   isActive.value = false;

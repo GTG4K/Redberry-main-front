@@ -76,5 +76,5 @@
   "lowercase_characters": "Lowercase characters.",
   "save_changes": "Save changes",
   "check_your_email": "Check your Email",
-  "search_placeholder": "Enter @ to search movies, Enter # to search quotes"
+  "search_placeholder": "Enter 'at' to search movies, Enter 'hash' to search quotes"
 }

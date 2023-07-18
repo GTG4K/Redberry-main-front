@@ -107,7 +107,7 @@ import NavigationBar from "@/components/NavigationBar.vue";
 import {useUserStore} from "@/stores/user";
 import TextInput from "@/components/TextInput.vue";
 import BaseButton from "@/components/BaseButton.vue";
-import {Form, Field} from "vee-validate";
+import {Form} from "vee-validate";
 import {useStyleStore} from "@/stores/style";
 import {computed, ref} from "vue";
 import {updateUser} from "@/services/user";

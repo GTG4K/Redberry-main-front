@@ -1,6 +1,6 @@
 <template>
   <div class="lg:grid lg:grid-cols-5 gap-6 flex flex-col">
-    <img :src="props.movie.poster" alt="movie poster" class="lg:col-span-3 lg:h-[32rem] h-60 object-cover rounded-xl">
+    <img :src="props.movie.poster" alt="movie poster" class="lg:col-span-3 lg:h-[32rem] h-60 w-full object-cover rounded-xl">
     <div class="flex flex-col gap-8 col-span-2">
       <div class="flex justify-between items-center">
         <h2 class="lg:text-2xl md:text-xl sm:text-lg text-md text-white">
