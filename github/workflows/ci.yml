@@ -1,4 +1,4 @@
-name: "jobs on pull request"
+name: jobs on pull request
 on: pull_request
 jobs:
   test:
