@@ -1,4 +1,5 @@
 import {defineStore} from 'pinia';
+import {image} from "@vee-validate/rules";
 
 export const useUserStore = defineStore('user', {
     state: () => ({
@@ -7,6 +8,12 @@ export const useUserStore = defineStore('user', {
     actions: {
         setUser(user) {
             this.user = user; // Set the user state
+        },
+        setUserName(name) {
+            this.user.name = name;
+        },
+        setUserPFP(imageURL) {
+            this.user.profile_picture = imageURL;
         },
         clearUser() {
             this.user = null; // Clear the user state
@@ -18,6 +25,9 @@ export const useUserStore = defineStore('user', {
         },
         getUserName(){
             return this.user?.name;
+        },
+        getUserEmail(){
+            return this.user?.email;
         },
         getUserID(){
             return this.user?.id;

@@ -1,9 +1,10 @@
 <template>
   <HeaderComponent @action="setDialog"/>
   <main class="bg-landing min-h-screen">
-    <div class="bg-landing flex flex-col justify-center items-center gap-8 m-auto text-center sm:h-screen h-[25rem] sm:w-[38rem] w-full">
-      <h2 class="text-yellow-dead sm:text-4xl text-xl px-8">Find any quote in millions of movie lines</h2>
-      <BaseButton color="red" @click="setDialog('sign_up')"> Get Started</BaseButton>
+    <div
+        class="bg-landing flex flex-col justify-center items-center gap-8 m-auto text-center sm:h-screen h-[25rem] sm:w-[38rem] w-full">
+      <h2 class="text-yellow-dead sm:text-4xl text-xl px-8">{{ $t("message.landing_title")}}</h2>
+      <BaseButton color="red" @click="setDialog('sign_up')">{{ $t("message.getting_started")}}</BaseButton>
     </div>
     <LandingSection quote="“You have to leave something behind to go forward”"
                     movie="Interstellar, 2014" :section="1"/>
@@ -17,6 +18,7 @@
     <LoginDialog v-if="dialog==='log_in'" @setDialog="setDialog"></LoginDialog>
     <ForgotPasswordDialog v-if="dialog==='forgot'" @setDialog="setDialog"></ForgotPasswordDialog>
     <ActivateAccountDialog v-if="dialog==='activate_account'" @setDialog="setDialog"></ActivateAccountDialog>
+    <RecoverPasswordDialog v-if="dialog==='recover_password'" @setDialog="setDialog"></RecoverPasswordDialog>
     <AccountActivatedDialog v-if="dialog==='account_activated'" @setDialog="setDialog"></AccountActivatedDialog>
     <ResetPasswordDialog v-if="dialog==='reset_password'" @setDialog="setDialog"></ResetPasswordDialog>
     <EmailChangedDialog v-if="dialog==='email_changed'" @setDialog="setDialog"></EmailChangedDialog>
@@ -26,7 +28,7 @@
 </template>
 
 <script setup>
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import BaseButton from "../components/BaseButton.vue";
 import LandingSection from "../components/LandingSection.vue";
 import HeaderComponent from "../components/HeaderComponent.vue";
@@ -40,9 +42,11 @@ import EmailChangedDialog from "../components/EmailChangedDialog.vue";
 import PasswordChangedDialog from "../components/PasswordChangedDialog.vue";
 import LinkExpiredDialog from "../components/LinkExpiredDialog.vue";
 import {useRoute} from "vue-router";
+import RecoverPasswordDialog from "@/components/RecoverPasswordDialog.vue";
+import instantiatePusher from "@/helpers/instantiatePusher";
 
 const route = useRoute()
-const dialog = ref(route.query.dialog || 'link_expired');
+const dialog = ref(route.query.dialog || null);
 
 const setDialog = (action) => {
   dialog.value = action;

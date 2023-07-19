@@ -3,39 +3,73 @@
     <div class="relative w-8 cursor-pointer p-1" @click="toggleActive">
       <img src="../assets/svg/notification.svg" alt="bell" class="w-full">
       <div v-if="newNotifications > 0"
-          class="w-4 h-4 rounded-full bg-orange-600 text-xs flex justify-center items-center absolute top-0 right-0 select-none text-white">
+           class="w-4 h-4 rounded-full bg-orange-600 text-xs flex justify-center items-center absolute top-0 right-0 select-none text-white">
         {{ newNotifications }}
       </div>
     </div>
-    <div
-        class="transition-all overflow-hidden absolute top-14 -right-[16rem] text-white rounded-xl bg-header shadow w-[40rem]"
-        :class="isActive ? 'max-h-[32.5rem]' : 'max-h-0'">
-      <div class="flex justify-between p-6">
-        <h2 class="text-xl select-none">Notifications</h2>
-        <p class="text-xs select-none cursor-pointer hover:text-blue-400 transition-all" @click="handleAllNotificationsSeen">Mark all as read</p>
+    <div v-if="!styleStore.deviceIsMobile"
+         class="transition-all text-white absolute bg-black w-[35rem] -right-64 top-14 overflow-hidden px-5 rounded-xl"
+         :class="{'max-h-[40rem] py-5': isActive, 'max-h-0': !isActive}">
+      <div class="flex justify-between items-center pb-5">
+        <h2 class="select-none">{{ $t('message.notifications') }}</h2>
+        <h2 @click="handleAllNotificationsSeen"
+            class="hover:text-white text-white/80 select-none cursor-pointer underline text-xs">{{ $t('message.mark_all_read') }}</h2>
       </div>
-      <div class="px-6 pb-6 ">
-        <div class="flex flex-col gap-4 max-h-[28rem] overflow-y-auto ">
-          <div v-if="notifications?.length === 0" class="flex items-center justify-center pb-5">Nothing to see here...
+      <div class="flex flex-col gap-3 max-h-[35rem] overflow-y-auto pr-2">
+        <div v-for="notification in notifications" :key="notification.id"
+             class="border border-white/20 rounded p-2 flex gap-4 cursor-pointer hover:bg-white/10"
+             @click="viewNotification(notification.quote.id, notification.id)">
+          <img :src="notification.sender.profile_picture" alt="sender pfp" class="w-[4rem] h-[4rem] rounded-full">
+          <div class="flex justify-between items-center w-full">
+            <div class="flex flex-col gap-2">
+              <h2 class="text-xs">{{ notification.sender.name }}</h2>
+              <div v-if="notification.type === 'comment'" class="flex items-center gap-2">
+                <img src="../assets/svg/comment.svg" alt="comment" class="w-4 h-4">
+                <h2 class="text-xs">{{ $t('message.commented_on_your_quote') }}</h2>
+              </div>
+              <div v-else class="flex items-center gap-2">
+                <img src="../assets/svg/heart.svg" alt="heart" class="w-4 h-4">
+                <h2 class="text-xs">{{ $t('message.liked_your_quote') }}</h2>
+              </div>
+            </div>
+            <div class="flex flex-col gap-2 items-end">
+              <h2 class="text-xs">{{ notification.timeAgo }}</h2>
+              <h2 v-if="!notification.is_read" class="text-xs text-green-500/80">{{ $t('message.new') }}</h2>
+            </div>
           </div>
-          <div v-for="notification in notifications" :key="notification.id"
-               @click="viewNotification(notification.quote.id, notification.id)"
-               class="py-2 px-4 transition-all border border-white/50 rounded flex gap-5 items-center cursor-pointer hover:bg-white/10">
-            <img :src="notification.sender.profile_picture" class="w-[3.4rem] h-[3.4rem] rounded-full">
-            <div class="flex flex-col w-full gap-2">
-              <div class="flex space-between justify-between items-center w-full">
-                <p class="text-xs">{{ notification.sender.name }}</p>
-                <p class="text-xs">{{ notification.timeAgo }}</p>
-              </div>
-              <div class="flex space-between justify-between items-center w-full">
-                <div class="flex gap-2 items-center">
-                  <img v-if="notification.notification_type === 'like'" src="../assets/svg/heart.svg" alt="reply"
-                       class="w-5 h-5">
-                  <img v-else src="../assets/svg/comment.svg" alt="reply" class="w-5 h-5">
-                  <p class="text-xs">{{ notification.message }}</p>
+        </div>
+      </div>
+    </div>
+    <div v-else
+         class="transition-all text-white fixed bg-black w-screen right-0 top-[60px] overflow-hidden px-5"
+         :class="{'h-screen py-5': isActive, 'max-h-0': !isActive}">
+      <div class="flex justify-between items-center pb-5">
+        <h2 class="select-none">{{ $t('message.notifications') }}</h2>
+        <h2 @click="handleAllNotificationsSeen"
+            class="hover:text-white text-white/80 select-none cursor-pointer underline text-xs">{{ $t('message.mark_all_read') }}</h2>
+      </div>
+      <div class="flex flex-col gap-3 max-h-[calc(100%-6rem)] overflow-y-auto pr-2">
+        <div v-for="notification in notifications" :key="notification.id"
+             class="border border-white/20 rounded p-2 flex gap-4 cursor-pointer hover:bg-white/10"
+             @click="viewNotification(notification.quote.id, notification.id)">
+          <div class="flex flex-col gap-2">
+            <div class="flex items-center gap-2">
+              <img :src="notification.sender.profile_picture" alt="sender pfp" class="w-[4rem] h-[4rem] rounded-full">
+              <div class="flex flex-col gap-3">
+                <h2 class="text-xs">{{ notification.sender.name }}</h2>
+                <div v-if="notification.type === 'comment'" class="flex items-center gap-2">
+                  <img src="../assets/svg/comment.svg" alt="comment" class="w-4 h-4">
+                  <h2 class="text-xs">{{ $t('message.commented_on_your_quote') }}</h2>
                 </div>
-                <p v-if="!notification.is_read" class="text-xs text-green-400">New</p>
+                <div v-else class="flex items-center gap-2">
+                  <img src="../assets/svg/heart.svg" alt="heart" class="w-4 h-4">
+                  <h2 class="text-xs">{{ $t('message.liked_your_quote') }}</h2>
+                </div>
               </div>
+            </div>
+            <div class="flex gap-2">
+              <h2 class="text-xs text-green-500/80 w-[4rem] text-center">{{notification.is_read === 0 ? $t('message.new') : ''}}</h2>
+              <h2 class="text-xs">{{ notification.timeAgo }}</h2>
             </div>
           </div>
         </div>
@@ -46,9 +80,11 @@
 
 <script setup>
 import {useNotificationStore} from "@/stores/notifications";
-import {computed, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import router from "@/router";
 import {notificationAllSeen, notificationSeen} from "@/services/notifications";
+import {useStyleStore} from "@/stores/style";
+import instantiatePusher from "@/helpers/instantiatePusher";
 
 const notificationsStore = useNotificationStore()
 const newNotifications = computed(() => {
@@ -58,6 +94,14 @@ const newNotifications = computed(() => {
 const notifications = computed(() => {
   const notificationData = notificationsStore.getNotifications;
   return notificationData?.notifications
+})
+const styleStore = useStyleStore();
+
+onMounted(() => {
+  window.Echo.private('comments').listen('NewNotificationEvent', (data) => {
+    const {notification} = data
+    notificationsStore.addNotification(notification);
+  })
 })
 
 const viewNotification = (quoteId, notificationId) => {

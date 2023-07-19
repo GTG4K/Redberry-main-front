@@ -1,28 +1,28 @@
 <template>
-  <div class="bg-backdrop col-span-3 rounded-xl py-6 px-8 relative">
+  <div class="bg-backdrop lg:col-span-3 col-span-5 sm:rounded-xl py-6 px-8 relative">
     <img src="../assets/svg/options.svg" alt="options" @click="toggleOptions()"
-         class="absolute top-3 right-3 w-10 h-10 p-2 cursor-pointer rounded-full hover:bg-white/10">
+         class="absolute lg:top-3 lg:right-3 bottom-3 right-6 w-10 h-10 p-2 cursor-pointer rounded-full hover:bg-white/10">
     <div
-        class="absolute text-white top-[3.4rem] right-12 bg-header rounded-lg w-52 transition-all translate-x-full overflow-hidden"
+        class="absolute transform text-white lg:top-[3.4rem] -right-48 bottom-[3.4rem] bg-header rounded-lg w-52 transition-all -translate-x-full overflow-hidden"
         :class="optionsOpen ? 'max-h-60 py-2 ' : 'max-h-0'">
       <div class="flex gap-4 items-center py-2 px-5 cursor-pointer hover:bg-white/10" @click="viewQuote(quote.id)">
         <img class="w-4 h-4" src="../assets/svg/eye.svg" alt="eyes">
-        <p class="text-xs">View Quote</p>
+        <p class="text-xs">{{ $t('message.view_quote') }}</p>
       </div>
       <div v-if="quote.user.id === userStore.getUserID" @click="editQuote(quote.id)"
            class="flex gap-4 items-center py-2 px-5 cursor-pointer hover:bg-white/10">
         <img class="w-4 h-4" src="../assets/svg/pencil.svg" alt="eyes">
-        <p class="text-xs">Edit</p>
+        <p class="text-xs">{{ $t('message.edit') }}</p>
       </div>
       <div v-if="quote.user.id === userStore.getUserID" @click="handleDeleteQuote(quote.id)"
            class="flex gap-4 items-center py-2 px-5 cursor-pointer hover:bg-red-400/10">
         <img class="w-4 h-4" src="../assets/svg/trash.svg" alt="eyes">
-        <p class="text-xs">Delete</p>
+        <p class="text-xs">{{ $t('message.delete') }}</p>
       </div>
     </div>
-    <div class="grid grid-cols-6 gap-6 items-center">
+    <div class="sm:grid sm:grid-cols-6 gap-6 sm:items-center flex flex-col">
       <img :src="quote.image" alt="quote image" class="w-full h-40 object-cover rounded col-span-2">
-      <h2 class="text-white/60 text-xl col-span-4">"{{ quote.quote[languageStore.getLanguage] }}"</h2>
+      <h2 class="text-white/60 sm:text-xl text-sm col-span-4">"{{ quote.quote[languageStore.getLanguage] }}"</h2>
     </div>
     <div class="w-full h-0.5 bg-white/20 mt-6 mb-4"></div>
     <div class="flex gap-6">
@@ -46,10 +46,12 @@ import {computed, ref} from "vue";
 import {useQuoteStore} from "@/stores/Quotes";
 import {useRouter} from "vue-router";
 import {deleteQuote} from "@/services/quotes";
+import {useStyleStore} from "@/stores/style";
 
 const languageStore = useLanguageStore();
 const quoteStore = useQuoteStore();
 const userStore = useUserStore();
+const styleStore = useStyleStore();
 const router = useRouter();
 
 const props = defineProps({quoteId: Number});

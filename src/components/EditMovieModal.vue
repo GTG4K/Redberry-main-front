@@ -1,8 +1,15 @@
 <template>
   <div>
     <div
-        class="fixed bg-backdrop top-[4.5rem] left-1/2 -translate-x-1/2 w-1/2 text-white z-30 rounded-xl max-h-[45rem] overflow-y-auto">
-      <h2 class="py-6 text-center">Edit Movie</h2>
+        class="fixed bg-backdrop sm:top-[4.5rem] sm:left-1/2 sm:-translate-x-1/2
+        sm:w-1/2 text-white z-30 sm:rounded-xl sm:h-[41rem] overflow-y-auto
+        w-screen top-0 left-0 h-screen">
+      <div class="grid grid-cols-3 items-center">
+        <h2 class="py-6 text-center col-start-2">Add a new movie</h2>
+        <div class="flex justify-end items-center">
+          <h2 @click="toggleEditMovie(false)" class="cursor-pointer hover:text-white text-white/50 pr-10">X</h2>
+        </div>
+      </div>
       <div class="h-0.5 w-full bg-white/20"></div>
       <form class="p-5 flex flex-col gap-5" @submit.prevent="submitForm">
         <div class="flex items-center gap-4">

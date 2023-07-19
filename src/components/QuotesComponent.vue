@@ -1,5 +1,5 @@
 <template>
-  <div v-for="quote in quoteList" :key="quote.id" class="bg-backdrop rounded-xl p-5 flex flex-col gap-4">
+  <div v-for="quote in quoteList" :key="quote.id" class="bg-backdrop/50 sm:rounded-xl p-5 flex flex-col gap-4">
     <div class="flex gap-3 items-center">
       <img :src="quote.user.profile_picture" alt="user icon" class="w-12 rounded-full">
       <h3 class="text-white">{{ quote.user.name }}</h3>
@@ -41,9 +41,9 @@
       <form @submit.prevent="handleSubmit($event, storeComment(meta, values))" class="w-full">
         <Field v-model="commentField" type="text" name="comment" placeholder="share your thoughts..."
                class="text-white/80 bg-input hover:bg-gray-600/50 h-10 px-4 outline-0 w-full rounded" rules="required"/>
-        <Field type="hidden" name="user_id" :value="userStore.getUserID"/>
-        <Field type="hidden" name="movie_id" :value="quote.movie.id"/>
-        <Field type="hidden" name="quote_id" :value="quote.id"/>
+        <Field type="hidden" name="user_id" :value="userStore.getUserID" rules="required"/>
+        <Field type="hidden" name="movie_id" :value="quote.movie.id" rules="required"/>
+        <Field type="hidden" name="quote_id" :value="quote.id" rules="required"/>
       </form>
     </Form>
   </div>
@@ -63,7 +63,6 @@ import {toggleLike} from "@/services/likes";
 
 const commentField = ref('')
 const quoteStore = useQuoteStore();
-const movieStore = useMoviesStore();
 const languageStore = useLanguageStore();
 
 const router = useRouter();
@@ -78,23 +77,12 @@ const storeComment = (meta, values) => {
       movie_id: values.movie_id,
     }
     storeComments(comment);
-    const commentData = {
-      comment: values.comment,
-      user: userStore.getUserResource,
-    }
-    quoteStore.addQuoteComment(values.quote_id, commentData);
-    movieStore.addMovieComment(values.movie_id, commentData)
     commentField.value = '';
   }
 }
 
 const handleLike = async (quoteId) => {
   await toggleLike(quoteId);
-  const likeData = {
-    userId: userStore.getUserID,
-    quoteId: quoteId,
-  }
-  quoteStore.toggleQuoteLike(quoteId, likeData);
 }
 
 const userStore = useUserStore();

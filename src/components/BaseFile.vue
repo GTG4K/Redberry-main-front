@@ -2,11 +2,11 @@
   <div>
     <label v-if='!uploadedImage' for="image"
            class="relative transition-all w-full border border-white/20 rounded h-20 flex items-center text-sm px-2 hover:bg-red-300/20 cursor-pointer">
-      Drag & drop or Choose file..</label>
+     {{ $t("message.choose_file") }} </label>
     <label v-else for="image"
            class="relative flex gap-2 transition-all w-full border border-white/20 rounded flex items-center text-sm p-2 hover:bg-red-300/20 cursor-pointer">
       <img :src="uploadedImage" alt="image preview" class="h-20 object-cover rounded">
-      select another file?
+      {{ $t('message.select_another_file') }}
     </label>
     <input name="image" type="file" id="image" @change="updateFile" class="hidden"/>
   </div>

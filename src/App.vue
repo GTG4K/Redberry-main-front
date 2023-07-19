@@ -6,12 +6,15 @@
 
 <script setup>
 import {RouterView, useRouter} from 'vue-router'
-import {onBeforeMount} from "vue";
+import {onBeforeMount, onMounted, ref} from "vue";
 import {user} from "@/services/auth";
 import {useUserStore} from "@/stores/user";
+import instantiatePusher from "@/helpers/instantiatePusher";
 
 const router = useRouter();
 const userStore = useUserStore();
+const pusherActive = ref(false);
+
 onBeforeMount(async () => {
   try {
     const currentUser = await user();
@@ -22,5 +25,9 @@ onBeforeMount(async () => {
   } catch (error) {
     console.log(error)
   }
+})
+
+onMounted(() => {
+  pusherActive.value = instantiatePusher();
 })
 </script>
