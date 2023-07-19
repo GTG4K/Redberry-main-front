@@ -44,7 +44,7 @@ const styleStore = useStyleStore();
 const pusher = ref(false);
 
 onMounted(() => {
-  pusher.value = instantiatePusher();
+  if(!pusher.value) pusher.value = instantiatePusher();
   window.Echo.channel('likes').listen('ToggleLikeEvent', (data) => {
     const {like, deleteLike} = data
     deleteLike ? quoteStore.deleteLike(like) : quoteStore.addLike(like)
