@@ -37,7 +37,7 @@ import BaseButton from "./BaseButton.vue";
 import TextInput from "./TextInput.vue";
 import FormDialog from "./FormDialog.vue";
 import {Field, Form} from "vee-validate";
-import {login, register} from "@/services/auth";
+import {login} from "@/services/auth";
 import {useUserStore} from "@/stores/user";
 import {useRouter} from "vue-router";
 import {ref} from "vue";

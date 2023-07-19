@@ -84,7 +84,6 @@ import {computed, onMounted, ref} from "vue";
 import router from "@/router";
 import {notificationAllSeen, notificationSeen} from "@/services/notifications";
 import {useStyleStore} from "@/stores/style";
-import instantiatePusher from "@/helpers/instantiatePusher";
 
 const notificationsStore = useNotificationStore()
 const newNotifications = computed(() => {

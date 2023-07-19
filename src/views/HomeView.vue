@@ -41,8 +41,10 @@ const movieStore = useMoviesStore();
 
 const addQuote = ref(false);
 const styleStore = useStyleStore();
+const pusher = ref(false);
 
 onMounted(() => {
+  pusher.value = instantiatePusher();
   window.Echo.channel('likes').listen('ToggleLikeEvent', (data) => {
     const {like, deleteLike} = data
     deleteLike ? quoteStore.deleteLike(like) : quoteStore.addLike(like)

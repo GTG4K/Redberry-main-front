@@ -1,5 +1,4 @@
 import {defineStore} from 'pinia';
-import {image} from "@vee-validate/rules";
 
 export const useUserStore = defineStore('user', {
     state: () => ({

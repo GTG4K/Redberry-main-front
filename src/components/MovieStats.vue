@@ -28,7 +28,6 @@ import {useLanguageStore} from "@/stores/language";
 import {deleteMovie} from "@/services/movies";
 import {useMoviesStore} from "@/stores/Movies";
 import {useRouter} from "vue-router";
-import {useStyleStore} from "@/stores/style";
 
 const languageStore = useLanguageStore();
 const movieStore = useMoviesStore();

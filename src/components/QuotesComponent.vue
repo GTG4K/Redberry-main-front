@@ -56,7 +56,6 @@ import {Field, Form} from "vee-validate";
 import {computed, ref} from "vue";
 import {storeComments} from "@/services/comments";
 import {useQuoteStore} from "@/stores/Quotes";
-import {useMoviesStore} from "@/stores/Movies";
 import {useRouter} from "vue-router";
 import {useLanguageStore} from "@/stores/language";
 import {toggleLike} from "@/services/likes";
