@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-import {onMounted, ref} from "vue";
+import {ref} from "vue";
 import BaseButton from "../components/BaseButton.vue";
 import LandingSection from "../components/LandingSection.vue";
 import HeaderComponent from "../components/HeaderComponent.vue";
@@ -43,7 +43,6 @@ import PasswordChangedDialog from "../components/PasswordChangedDialog.vue";
 import LinkExpiredDialog from "../components/LinkExpiredDialog.vue";
 import {useRoute} from "vue-router";
 import RecoverPasswordDialog from "@/components/RecoverPasswordDialog.vue";
-import instantiatePusher from "@/helpers/instantiatePusher";
 
 const route = useRoute()
 const dialog = ref(route.query.dialog || null);

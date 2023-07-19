@@ -44,14 +44,12 @@ import {useMoviesStore} from "@/stores/Movies";
 import BaseFile from "@/components/BaseFile.vue";
 import {storeQuote} from "@/services/quotes";
 import {useQuoteStore} from "@/stores/Quotes";
-import {useStyleStore} from "@/stores/style";
 
 
 const props = defineProps({movieLock: Object})
 const emits = defineEmits(['toggleAddQuote'])
 const userStore = useUserStore();
 const quoteStore = useQuoteStore();
-const styleStore = useStyleStore();
 
 const image = ref(null);
 const quoteEn = ref('');

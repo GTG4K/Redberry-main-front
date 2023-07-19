@@ -46,12 +46,10 @@ import {computed, ref} from "vue";
 import {useQuoteStore} from "@/stores/Quotes";
 import {useRouter} from "vue-router";
 import {deleteQuote} from "@/services/quotes";
-import {useStyleStore} from "@/stores/style";
 
 const languageStore = useLanguageStore();
 const quoteStore = useQuoteStore();
 const userStore = useUserStore();
-const styleStore = useStyleStore();
 const router = useRouter();
 
 const props = defineProps({quoteId: Number});
