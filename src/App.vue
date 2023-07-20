@@ -10,6 +10,7 @@ import {onBeforeMount} from "vue";
 import {user} from "@/services/auth";
 import {useUserStore} from "@/stores/user";
 
+//linter final
 const router = useRouter();
 const userStore = useUserStore();
 onBeforeMount(async () => {
