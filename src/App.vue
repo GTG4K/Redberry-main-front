@@ -11,6 +11,7 @@ import {user} from "@/services/auth";
 import {useUserStore} from "@/stores/user";
 import instantiatePusher from "@/helpers/instantiatePusher";
 
+//linter final
 const router = useRouter();
 const userStore = useUserStore();
 const pusherActive = ref(false);
