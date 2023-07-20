@@ -6,12 +6,16 @@ export const useNotificationStore = defineStore('notifications', {
         notifications: null,
     }),
     actions: {
+        addNotification(notificationResource){
+            this.notifications.notifications.push(notificationResource);
+        },
         setNotifications(notifications) {
             this.notifications = notifications;
         },
         setReadableTime() {
             const notifsToReturn = this.notifications;
             if (this.notifications?.notifications) {
+                notifsToReturn.notifications.reverse();
                 notifsToReturn.notifications.forEach((notification) => {
                     const createdAt = notification.created_at;
 

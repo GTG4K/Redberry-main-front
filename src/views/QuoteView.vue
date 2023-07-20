@@ -1,9 +1,9 @@
 <template>
-  <HeaderComponent/>
-  <main class="bg-background pt-header grid grid-cols-4 min-h-screen">
-    <NavigationBar></NavigationBar>
-    <aside class="col-start-2 col-span-2 py-5">
-      <div class="w-full bg-backdrop rounded text-white">
+  <HeaderComponent v-if="!styleStore.deviceIsMobile"/>
+  <main class="bg-background sm:pt-header min-h-screen sm:px-3">
+    <NavigationBar v-if="!styleStore.deviceIsMobile"></NavigationBar>
+    <aside class="lg:pl-72 sm:pl-52 sm:py-5 flex flex-col gap-6">
+      <div class="lg:w-[calc(100vw/2)] bg-backdrop rounded text-white">
         <!-- header -->
         <div class="grid grid-cols-3 items-center p-4">
           <div v-if="!editMode && quote.user.id === userStore.getUserID" class="flex gap-2 min-h-4 items-center">
@@ -19,12 +19,12 @@
             <div class="flex gap-2 items-center hover:bg-red-400/10 p-2 rounded cursor-pointer w-fit"
                  @click="handleDeleteQuote">
               <img src="../assets/svg/trash.svg" alt="delete">
-              <h2 class="text-sm">delete</h2>
+              <h2 class="text-sm">{{ $t('message.delete') }}</h2>
             </div>
           </div>
           <div v-if="quote.user.id !== userStore.getUserID"></div>
-          <h2 class="text-center select-none">Quote</h2>
-          <h2 class="text-end">close</h2>
+          <h2 class="text-center select-none">{{ $t('message.quote') }}</h2>
+          <h2 class="text-end cursor-pointer" @click="handleBack">X</h2>
         </div>
         <div class="w-full h-0.5 bg-white/10"></div>
         <div class="p-4">
@@ -63,7 +63,7 @@
               <img v-else :src="imageURL" alt="quote image" class="w-full object-cover">
               <span class="absolute top-1/2 left-1/2 -translate-x-1/2 transition-all
               -translate-y-1/2 bg-backdrop/60 w-60 h-40 rounded-xl flex justify-center items-center group-hover:bg-backdrop/80">
-                Change Photo
+                {{ $t('message.select_another_file') }}
               </span>
             </label>
             <input type="file" class="hidden" @change="updateImage" id="image">
@@ -97,7 +97,7 @@
           <Form v-if="!editMode" as="div" v-slot="{handleSubmit, values, meta}" class="flex gap-3 items-center">
             <img :src="userStore.getUserProfile" alt="current user pfp" class="w-12 rounded-full">
             <form @submit.prevent="handleSubmit($event, storeComment($event, meta, values))" class="w-full">
-              <Field v-model="commentField" type="text" name="comment" placeholder="share your thoughts..."
+              <Field v-model="commentField" type="text" name="comment" :placeholder="$t('message.share_your_thoughts')"
                      class="text-white/80 bg-input hover:bg-gray-600/50 h-10 px-4 outline-0 w-full rounded"
                      rules="required"/>
               <Field type="hidden" name="user_id" :value="userStore.getUserID"/>
@@ -105,7 +105,7 @@
               <Field type="hidden" name="quote_id" :value="quote.id"/>
             </form>
           </Form>
-          <BaseButton size="full" color="red" v-if="editMode" @click="handleUpdateQuote">Submit Changes</BaseButton>
+          <BaseButton size="full" color="red" v-if="editMode" @click="handleUpdateQuote">{{ $t('message.submit') }}</BaseButton>
         </div>
       </div>
     </aside>
@@ -126,11 +126,13 @@ import {useMoviesStore} from "@/stores/Movies";
 import {deleteQuote, updateQuote} from "@/services/quotes";
 import router from "@/router";
 import BaseButton from "@/components/BaseButton.vue";
+import {useStyleStore} from "@/stores/style";
 
 const route = useRoute();
 const userStore = useUserStore();
 const quoteStore = useQuoteStore();
 const movieStore = useMoviesStore();
+const styleStore = useStyleStore();
 
 const commentField = ref('');
 const selectedQuoteId = ref(route.params.id)
@@ -146,6 +148,10 @@ watch(
 onBeforeUnmount(() => {
   stop()
 })
+
+const handleBack = () => {
+  editMode.value ? editMode.value = false : router.back();
+}
 
 const quote = computed(() => {
   return quoteStore.getQuoteById(selectedQuoteId.value);

@@ -55,21 +55,21 @@ export const useQuoteStore = defineStore('quotes', {
                 if (quote.id === quoteId) quote.comments = [...quote.comments, comment]
             })
         },
-        toggleQuoteLike(quoteId, like) {
+        deleteLike(likeResource) {
+            const {id, quoteId, userId} = likeResource;
             const userStore = useUserStore();
-            this.quotes.forEach(quote => {
-                if (quote.id === quoteId) {
-                    if (!quote.likedByAuthUser) {
-                        quote.likedByAuthUser = true
-                        quote.likes = [...quote.likes, like];
-                    } else {
-                        quote.likes.forEach((like) => {
-                            like.userId === userStore.getUserID && quote.likes.splice(quote.likes.indexOf(like), 1);
-                            quote.likedByAuthUser = false
-                        })
-                    }
-                }
+            const quote = this.quotes.find((quote) => quote.id === quoteId);
+            if (userStore.getUserID === userId) quote.likedByAuthUser = false;
+            quote.likes.forEach((like) => {
+                like.id === id && quote.likes.splice(quote.likes.indexOf(like), 1);
             })
+        },
+        addLike(likeResource) {
+            const {quoteId, userId} = likeResource;
+            const userStore = useUserStore();
+            const quote = this.quotes.find((quote) => quote.id === quoteId);
+            if (userStore.getUserID === userId) quote.likedByAuthUser = true;
+            quote.likes.push(likeResource);
         },
         deleteQuote(quoteId) {
             this.quotes = this.quotes.filter(quote => quote.id !== quoteId);
